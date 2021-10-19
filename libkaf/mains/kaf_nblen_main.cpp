@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <iostream>
 #include <string>
+#include "../libkaf.h"
 using namespace std;
-
-int	kaf_nblen(int nb);
 
 int	main(int argc, char **argv)
 {
