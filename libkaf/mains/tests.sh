@@ -59,7 +59,7 @@ kaf_vec3_test()
 	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 	echo "+++++++++<-YOUR OUTPUT ++ TEST $nb ++ -> TEST OUTPUT++++++++++"
 
-	if diff -y <(./tester $x0 $y0 $z0 | cat -e) <(echo "$answer");
+	if diff -y <(./tester $x0 $y0 $z0 | cat -e) answers/vec3;
 	then
 		echo -e "OK\n"
 	else
@@ -75,7 +75,7 @@ kaf_tri_test()
 	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 	echo "+++++++++<-YOUR OUTPUT ++ TEST $nb ++ -> TEST OUTPUT++++++++++"
 
-	if diff -y <(./tester $params | cat -e) <(echo -e $answer);
+	if diff -y <(./tester $params | cat -e) answers/triangle;
 	then
 		echo -e "OK\n"
 	else

@@ -49,22 +49,10 @@ namespace kaf_graphics
 		//Public defines methods and variables that are accessable outside of the scope of the function.
 		public:
 			//Variables of the class.
-			//Class constructor, named as the class
-			vec3()
-			{
-				x = 0.0f;
-				y = 0.0f;
-				z = 0.0f;
-				w = 1.0f;
-			}
-			vec3(float a, float b, float c)
-			{
-				x = a;
-				y = b;
-				z = c;
-				w = 1.0f;
-			}
-			//Class method.
+			//Class constructor, named as the class, definiton of the constructor is in kaf_vectors.cpp
+			vec3();
+			vec3(float a, float b, float c);
+			//Class method declaration, when the class methods are defined, you will have to use :: notation.
 			void	print(void);
 			vec3	dec(vec3 b);
 	};
@@ -75,12 +63,7 @@ namespace kaf_graphics
 			vec3	p[3];
 			vec3 	normal;
 		public:
-			triangle(vec3 p0, vec3 p1, vec3 p2)
-			{
-				p[0] = p0;
-				p[1] = p1;
-				p[2] = p2;
-			}
+			triangle(vec3 p0, vec3 p1, vec3 p2);
 			void	print(void);
 	};
 
