@@ -49,6 +49,23 @@ kaf_swap_test()
 	fi
 }
 
+kaf_uv_test()
+{
+	nb=$1
+	u0=$2
+	v0=$3
+	answer=$5
+	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+	echo "+++++++++<-YOUR OUTPUT ++ TEST $nb ++ -> TEST OUTPUT++++++++++"
+
+	if diff -y <(./tester $u0 $v0 | cat -e) answers/uv;
+	then
+		echo -e "OK\n"
+	else
+		echo -e "KO\n"
+	fi
+}
+
 kaf_vec3_test()
 {
 	nb=$1
@@ -83,6 +100,20 @@ kaf_tri_test()
 	fi
 }
 
+kaf_mesh_test()
+{
+	nb=$1
+	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+	echo "+++++++++<-YOUR OUTPUT ++ TEST $nb ++ -> TEST OUTPUT++++++++++"
+
+	if diff -y <(./tester | cat -e) answers/mesh;
+	then
+		echo -e "OK\n"
+	else
+		echo -e "KO\n"
+	fi
+}
+
 g++ -o tester -Wall -Wextra -Werror -g kaf_nblen_main.cpp -I.. -L.. -lkaf
 kaf_nblen_test '1' '100' '3$'
 kaf_nblen_test '2' '1000' '4$'
@@ -94,7 +125,9 @@ g++ -o tester -Wall -Wextra -Werror -g kaf_swap_main.cpp -I.. -L.. -lkaf
 kaf_swap_test '1' '100' '1' '1 100$'
 g++ -o tester -Wall -Wextra -Werror -g kaf_vectors_main.cpp -I.. -L.. -lkaf
 kaf_vec3_test '1' '1' '2' '3' 'x: 1 y: 2 z: 3 w: 1$'
+g++ -o tester -Wall -Wextra -Werror -g kaf_uv_main.cpp -I.. -L.. -lkaf
+kaf_uv_test '1' '1' '2'
 g++ -o tester -Wall -Wextra -Werror -g kaf_triangles_main.cpp -I.. -L.. -lkaf
-kaf_tri_test '1' '1 2 3 4 5 6 7 8 9' "triangle points:$\n
-x: 1 y: 2 z: 3 w: 1$
-x: 1 y: 2 z: 3 w: 1$"
+kaf_tri_test '1' '1 2 3 4 5 6 7 8 9'
+g++ -o tester -Wall -Wextra -Werror -g kaf_object_main.cpp -I.. -L.. -lkaf
+kaf_mesh_test '1'

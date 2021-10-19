@@ -16,6 +16,30 @@ namespace kaf_graphics
 		z = c;
 		w = 1.0f;
 	}
+	float	vec3::get_x()
+	{
+		return (x);
+	}
+	float	vec3::get_y()
+	{
+		return (y);
+	}
+	float	vec3::get_z()
+	{
+		return (z);
+	}
+	void	vec3::set_x(float a)
+	{
+		this->x = a;
+	}
+	void	vec3::set_y(float b)
+	{
+		this->y = b;
+	}
+	void	vec3::set_z(float c)
+	{
+		this->z = c;
+	}
 	void	vec3::print(void)
 	{
 		cout << "x: " << this->x << " y: " << this->y << " z: "
@@ -29,6 +53,39 @@ namespace kaf_graphics
 		c.y = this->y - b.y;
 		c.z = this->z - b.z;
 		return (c);
+	}
+	uv::uv()
+	{
+		u = 0.0f;
+		v = 0.0f;
+		w = 1.0f;
+	}
+	uv::uv(float a, float b)
+	{
+		u = a;
+		v = b;
+		w = 1.0f;
+	}
+	float	uv::get_u()
+	{
+		return (this->u);
+	}
+	float	uv::get_v()
+	{
+		return (this->v);
+	}
+	void	uv::set_u(float a)
+	{
+		this->u = a;
+	}
+	void	uv::set_v(float a)
+	{
+		this->v = a;
+	}
+	void	uv::print(void)
+	{
+		cout << "u: " << this->u << " v: " << this->v
+			<< " w: " << this->w << endl;
 	}
 	//Constructor defined outside the class, since vec3 defaults to vec3(0.0f, 0.0f, 0.0f),
 	//object can be created just calling triangle()
@@ -46,5 +103,28 @@ namespace kaf_graphics
 		this->p[2].print();
 		cout << "triangle normal:" << endl;
 		this->normal.print();
+	}
+	object::object(string file)
+	{
+		try
+		{
+			if (!file.empty())
+			{
+				string		line;
+				ifstream	obj_file(file);
+				while (getline(obj_file, line))
+				{
+					cout << line;
+				}
+				obj_file.close();
+			}
+			else
+				throw (file);
+		}
+		catch (string file)
+		{
+			if (file.empty())
+				cout << "Invalid obj file" << endl;
+		}
 	}
 }

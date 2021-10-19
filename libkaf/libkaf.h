@@ -2,6 +2,7 @@
 #ifndef LIBKAF_H
 # define LIBKAF_H
 # include <iostream>
+# include <fstream>
 # include "src/kaf_swap.tpp"
   using namespace std;
 
@@ -53,8 +54,37 @@ namespace kaf_graphics
 			vec3();
 			vec3(float a, float b, float c);
 			//Class method declaration, when the class methods are defined, you will have to use :: notation.
+			//I have three getters, and three setters for the variables.
+			float	get_x();
+			float	get_y();
+			float	get_z();
+			void	set_x(float a);
+			void	set_y(float b);
+			void	set_z(float c);
 			void	print(void);
 			vec3	dec(vec3 b);
+	};
+
+	class uv
+	{
+		//Private keyword defines methods and variables that can't be accessed without using class methods.
+		private:
+			float	u;
+			float	v;
+			float	w;
+		//Public defines methods and variables that are accessable outside of the scope of the function.
+		public:
+			//Variables of the class.
+			//Class constructor, named as the class, definiton of the constructor is in kaf_vectors.cpp
+			uv();
+			uv(float a, float b);
+			//Class method declaration, when the class methods are defined, you will have to use :: notation.
+			//I have three getters, and three setters for the variables.
+			float	get_u();
+			float	get_v();
+			void	set_u(float a);
+			void	set_v(float b);
+			void	print(void);
 	};
 
 	class triangle
@@ -63,19 +93,31 @@ namespace kaf_graphics
 			vec3	p[3];
 			vec3 	normal;
 		public:
+			//Class method declaration, when the class methods are defined, you will have to use :: notation.
 			triangle(vec3 p0, vec3 p1, vec3 p2);
+			void	print(void);
+	};
+
+	class object
+	{
+		private:
+			int			vertex_indices;
+			int			uv_indices;
+			int			normal_indices;
+		public:
+			object(string file);
 			void	print(void);
 	};
 
 	//inheritance in c++ is done with : notation.
 	//class arithmetic: public vec3
+	//In C++, class can inherit multiple classes.
+	//Ie. class FinnishStudent: public Finnish, public Student
 	class arithmetic: public vec3
 	{
 		public:
 			vec3	dec(vec3 a, vec3 b);
 	};
-
-
 }
 
 
