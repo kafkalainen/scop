@@ -7,6 +7,8 @@
 # include <list>
 # include <vector>
 # include "src/kaf_swap.tpp"
+# include <glm/glm.hpp>
+# include <glm/gtc/matrix_transform.hpp>
   using namespace std;
 
 namespace kaf_swapping
@@ -116,14 +118,16 @@ namespace kaf_graphics
 			int					uv_indices;
 			int					normal_indices;
 			string				name;
-			list<triangle>		triangles;
 			void				kaf_extract_int_data(string sub_string,
 									int &v, int &vt, int &vn);
-			triangle			kaf_parse_facing(string line,
-									vector<vec3> &vectors,
-									vector<vec3> &normals,
-									vector<uv> &texels);
+			void				kaf_parse_facing(string line,
+									vector<unsigned int> &vectors,
+									vector<unsigned int> &normals,
+									vector<unsigned int> &texels);
 		public:
+			vector<glm::vec3>	vertices;
+			vector<glm::vec3>	normals;
+			vector<glm::vec3>	texels;
 			object(string file);
 			void	print(void);
 	};
@@ -148,7 +152,7 @@ void		kaf_swapi(int &a, int &b);
 void		kaf_swapf(float &a, float &b);
 void		kaf_swapd(double &a, double &b);
 void		kaf_extract_int_data(string sub_string, int &v, int &vt, int &vn);
-triangle	kaf_parse_facing(string line, vector<vec3> vectices,
-			vector<vec3> normals, vector<uv> texels);
+// void		kaf_parse_facing(string line, vector<glm::vec3> &vectices,
+// 			vector<glm::vec3> &normals, vector<glm::vec2> &texels);
 
 #endif

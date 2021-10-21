@@ -2,50 +2,22 @@
 # define NERD_H
 
 # include <iostream>
-# include <GL/freeglut.h>
-# include <GL/gl.h>
-# include <GL/glu.h>
 using namespace std;
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 const int SCREEN_FPS = 60;
+#include "../glew/include/GL/glew.h"
 
-bool initGL();
-/*
-Pre Condition:
- -A valid OpenGL context
-Post Condition:
- -Initializes matrices and clear color
- -Reports to console if there was an OpenGL error
- -Returns false if there was an error in initialization
-Side Effects:
- -Projection matrix is set to identity matrix
- -Modelview matrix is set to identity matrix
- -Matrix mode is set to modelview
- -Clear color is set to black
-*/
+// Include GLFW
+#include "../glfw/include/GLFW/glfw3.h"
 
-void update();
-/*
-Pre Condition:
- -None
-Post Condition:
- -Does per frame logic
-Side Effects:
- -None
-*/
+// Include GLM
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+using namespace glm;
+#include "../libkaf/libkaf.h"
+#include "shader.hpp"
 
-void render();
-/*
-Pre Condition:
- -A valid OpenGL context
- -Active modelview matrix
-Post Condition:
- -Renders the scene
-Side Effects:
- -Clears the color buffer
- -Swaps the front/back buffer
-*/
-
-
+int	init_glfw();
+int	create_window(GLFWwindow **window);
 #endif

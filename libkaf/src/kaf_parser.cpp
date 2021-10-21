@@ -9,11 +9,14 @@ namespace kaf_graphics
 		{
 			if (file.empty())
 				throw (1);
-			string				line;
-			ifstream			obj_file(file);
-			vector <vec3>		vertices;
-			vector <vec3>		normals;
-			vector <uv>			texels;
+			string					line;
+			ifstream				obj_file(file);
+			vector <unsigned int>	vertex_indices;
+			vector <unsigned int>	texel_indices;
+			vector <unsigned int>	normal_indices;
+			vector <glm::vec3>		tmp_vertices;
+			vector <glm::vec3>		tmp_normals;
+			vector <glm::vec2>		tmp_texels;
 			if (!obj_file.is_open())
 				throw (2);
 			while (!obj_file.eof() && getline(obj_file, line))
@@ -28,27 +31,37 @@ namespace kaf_graphics
 				if (line.find("v ") == 0)
 				{
 					data >> identifier >> vals[0] >> vals[1] >> vals[2];
-					vec3 v(vals[0], vals[1], vals[2]);
-					vertices.push_back(v);
+					glm::vec3 v(vals[0], vals[1], vals[2]);
+					tmp_vertices.push_back(v);
 				}
 				if (line.find("vn") == 0)
 				{
 					data >> identifier >> vals[0] >> vals[1] >> vals[2];
-					vec3 v(vals[0], vals[1], vals[2]);
-					normals.push_back(v);
+					glm::vec3 v(vals[0], vals[1], vals[2]);
+					tmp_normals.push_back(v);
 				}
 				if (line.find("vt") == 0)
 				{
 					data >> identifier >> vals[0] >> vals[1];
-					uv t(vals[0], vals[1]);
-					texels.push_back(t);
+					glm::vec2 t(vals[0], vals[1]);
+					tmp_texels.push_back(t);
 				}
 				if (line[0] == 'f')
 				{
-					triangles.push_back(kaf_parse_facing(line, vertices, normals, texels));
+					kaf_parse_facing(line, vertex_indices, normal_indices, texel_indices);
 				}
 			}
 			obj_file.close();
+			unsigned int i;
+			unsigned int cur_idx;
+			i = 0;
+			while (i < vertex_indices.size())
+			{
+				cur_idx = vertex_indices[i];
+				glm::vec3 vertex = tmp_vertices[cur_idx - 1];
+				vertices.push_back(vertex);
+				i++;
+			}
 		}
 		catch (int result)
 		{
