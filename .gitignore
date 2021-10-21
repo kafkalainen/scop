@@ -12,3 +12,11 @@ overloading
 tester
 a.out
 calculator
+SDL2_mixer
+SDL2_mixer-2.0.4
+SDL2-2.0.14
+SDL2
+SDL2_mixer-2.0.4.tar.gz
+SDL2-2.0.14.tar.gz
+graphics_nerd
+objs/
