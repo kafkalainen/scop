@@ -89,11 +89,54 @@ namespace kaf_graphics
 	}
 	//Constructor defined outside the class, since vec3 defaults to vec3(0.0f, 0.0f, 0.0f),
 	//object can be created just calling triangle()
+	triangle::triangle()
+	{
+		p[0] = vec3();
+		p[1] = vec3();
+		p[2] = vec3();
+		n[0] = vec3();
+		n[1] = vec3();
+		n[2] = vec3();
+		t[0] = uv();
+		t[1] = uv();
+	}
 	triangle::triangle(vec3 p0, vec3 p1, vec3 p2)
 	{
 		p[0] = p0;
 		p[1] = p1;
 		p[2] = p2;
+		n[0] = vec3();
+		n[1] = vec3();
+		n[2] = vec3();
+		t[0] = uv();
+		t[1] = uv();
+	}
+	void	triangle::set_texel(int idx, float x, float y)
+	{
+		t[idx].set_u(x);
+		t[idx].set_v(y);
+	}
+	void	triangle::set_texel(int idx, uv texel)
+	{
+		t[idx] = texel;
+	}
+	uv		triangle::get_texel(int idx)
+	{
+		return (t[idx]);
+	}
+	void	triangle::set_normal(int idx, float a, float b, float c)
+	{
+		n[idx].set_x(a);
+		n[idx].set_y(b);
+		n[idx].set_z(c);
+	}
+	void	triangle::set_normal(int idx, vec3 a)
+	{
+		n[idx] = a;
+	}
+	vec3	triangle::get_normal(int idx)
+	{
+		return (n[idx]);
 	}
 	void	triangle::print(void)
 	{
@@ -102,29 +145,6 @@ namespace kaf_graphics
 		this->p[1].print();
 		this->p[2].print();
 		cout << "triangle normal:" << endl;
-		this->normal.print();
-	}
-	object::object(string file)
-	{
-		try
-		{
-			if (!file.empty())
-			{
-				string		line;
-				ifstream	obj_file(file);
-				while (getline(obj_file, line))
-				{
-					cout << line;
-				}
-				obj_file.close();
-			}
-			else
-				throw (file);
-		}
-		catch (string file)
-		{
-			if (file.empty())
-				cout << "Invalid obj file" << endl;
-		}
+		this->n[0].print();
 	}
 }

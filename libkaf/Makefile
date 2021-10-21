@@ -29,6 +29,8 @@ SRC_LIST = \
 	$(SLASH)kaf_putstr.cpp \
 	$(SLASH)kaf_swap.cpp \
 	$(SLASH)kaf_vectors.cpp \
+	$(SLASH)kaf_parser.cpp \
+	$(SLASH)kaf_helpers_parsing.cpp \
 	# $(SLASH)ft_strlen.c \
 	# $(SLASH)ft_strdup.c \
 	# $(SLASH)ft_strcmp.c \
@@ -128,7 +130,7 @@ SRC_LIST = \
 HEADERS = ./libkaf.h
 
 CC = g++
-CFLAGS = -Wall -Wextra -Werror -std=c++14
+CFLAGS = -Wall -Wextra -Werror -g -std=c++14
 SRC = $(addprefix $S, $(SRC_LIST))
 OBJ = $(SRC:$S%=$O%.o)
 

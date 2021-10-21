@@ -3,6 +3,9 @@
 # define LIBKAF_H
 # include <iostream>
 # include <fstream>
+# include <sstream>
+# include <list>
+# include <vector>
 # include "src/kaf_swap.tpp"
   using namespace std;
 
@@ -91,24 +94,39 @@ namespace kaf_graphics
 	{
 		private:
 			vec3	p[3];
-			vec3 	normal;
+			vec3 	n[3];
+			uv		t[3];
 		public:
 			//Class method declaration, when the class methods are defined, you will have to use :: notation.
+			triangle(void);
 			triangle(vec3 p0, vec3 p1, vec3 p2);
+			triangle(vec3 p0, vec3 p1, vec3 p2, vec3 n);
 			void	print(void);
+			uv		get_texel(int idx);
+			void	set_texel(int idx, float a, float b);
+			void	set_texel(int idx, uv a);
+			vec3	get_normal(int idx);
+			void	set_normal(int idx, float a, float b, float c);
+			void	set_normal(int idx, vec3 a);
 	};
-
 	class object
 	{
 		private:
-			int			vertex_indices;
-			int			uv_indices;
-			int			normal_indices;
+			int					vertex_indices;
+			int					uv_indices;
+			int					normal_indices;
+			string				name;
+			list<triangle>		triangles;
+			void				kaf_extract_int_data(string sub_string,
+									int &v, int &vt, int &vn);
+			triangle			kaf_parse_facing(string line,
+									vector<vec3> &vectors,
+									vector<vec3> &normals,
+									vector<uv> &texels);
 		public:
 			object(string file);
 			void	print(void);
 	};
-
 	//inheritance in c++ is done with : notation.
 	//class arithmetic: public vec3
 	//In C++, class can inherit multiple classes.
@@ -120,13 +138,17 @@ namespace kaf_graphics
 	};
 }
 
+  using namespace kaf_graphics;
 
-int		kaf_open(const char *name);
-void	kaf_putendl(const string str);
-void	kaf_putstr(const string str);
-int		kaf_nblen(int nb);
-// T		kaf_swap(T &a, T &b);
-void	kaf_swapi(int &a, int &b);
-void	kaf_swapf(float &a, float &b);
-void	kaf_swapd(double &a, double &b);
+int			kaf_open(const char *name);
+void		kaf_putendl(const string str);
+void		kaf_putstr(const string str);
+int			kaf_nblen(int nb);
+void		kaf_swapi(int &a, int &b);
+void		kaf_swapf(float &a, float &b);
+void		kaf_swapd(double &a, double &b);
+void		kaf_extract_int_data(string sub_string, int &v, int &vt, int &vn);
+triangle	kaf_parse_facing(string line, vector<vec3> vectices,
+			vector<vec3> normals, vector<uv> texels);
+
 #endif

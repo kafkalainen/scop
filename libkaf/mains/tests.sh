@@ -21,8 +21,8 @@ kaf_nblen_test()
 	nb=$1
 	testable=$2
 	answer=$3
-	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-	echo "++ TEST $nb ++"
+	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+	echo "+++++++++<-YOUR OUTPUT +++++++++++++++ TEST $nb +++++++++++++++ -> TEST OUTPUT++++++++++"
 
 	if diff -y <(./tester $testable | cat -e) <(echo "$answer");
 	then
@@ -38,8 +38,8 @@ kaf_swap_test()
 	testable1=$2
 	testable2=$3
 	answer=$4
-	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-	echo "++ TEST $nb ++"
+	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+	echo "+++++++++<-YOUR OUTPUT +++++++++++++++ TEST $nb +++++++++++++++ -> TEST OUTPUT++++++++++"
 
 	if diff -y <(./tester $testable1 $testable2 | cat -e) <(echo "$answer");
 	then
@@ -55,8 +55,8 @@ kaf_uv_test()
 	u0=$2
 	v0=$3
 	answer=$5
-	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-	echo "+++++++++<-YOUR OUTPUT ++ TEST $nb ++ -> TEST OUTPUT++++++++++"
+	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+	echo "+++++++++<-YOUR OUTPUT +++++++++++++++ TEST $nb +++++++++++++++ -> TEST OUTPUT++++++++++"
 
 	if diff -y <(./tester $u0 $v0 | cat -e) answers/uv;
 	then
@@ -73,8 +73,8 @@ kaf_vec3_test()
 	y0=$3
 	z0=$4
 	answer=$5
-	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-	echo "+++++++++<-YOUR OUTPUT ++ TEST $nb ++ -> TEST OUTPUT++++++++++"
+	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+	echo "+++++++++<-YOUR OUTPUT +++++++++++++++ TEST $nb +++++++++++++++ -> TEST OUTPUT++++++++++"
 
 	if diff -y <(./tester $x0 $y0 $z0 | cat -e) answers/vec3;
 	then
@@ -89,8 +89,8 @@ kaf_tri_test()
 	nb=$1
 	params=$2
 	answer=$3
-	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-	echo "+++++++++<-YOUR OUTPUT ++ TEST $nb ++ -> TEST OUTPUT++++++++++"
+	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+	echo "+++++++++<-YOUR OUTPUT +++++++++++++++ TEST $nb +++++++++++++++ -> TEST OUTPUT++++++++++"
 
 	if diff -y <(./tester $params | cat -e) answers/triangle;
 	then
@@ -103,10 +103,11 @@ kaf_tri_test()
 kaf_mesh_test()
 {
 	nb=$1
-	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-	echo "+++++++++<-YOUR OUTPUT ++ TEST $nb ++ -> TEST OUTPUT++++++++++"
+	object=$2
+	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+	echo "+++++++++<-YOUR OUTPUT +++++++++++++++ TEST $nb +++++++++++++++ -> TEST OUTPUT++++++++++"
 
-	if diff -y <(./tester | cat -e) answers/mesh;
+	if diff -y <(./tester | cat -e) $object;
 	then
 		echo -e "OK\n"
 	else
@@ -130,4 +131,5 @@ kaf_uv_test '1' '1' '2'
 g++ -o tester -Wall -Wextra -Werror -g kaf_triangles_main.cpp -I.. -L.. -lkaf
 kaf_tri_test '1' '1 2 3 4 5 6 7 8 9'
 g++ -o tester -Wall -Wextra -Werror -g kaf_object_main.cpp -I.. -L.. -lkaf
-kaf_mesh_test '1'
+kaf_mesh_test '1' 'object_files/cube.obj'
+kaf_mesh_test '2' 'object_files/naanna.obj'

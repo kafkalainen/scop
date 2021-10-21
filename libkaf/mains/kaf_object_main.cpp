@@ -1,10 +1,11 @@
 #include "../libkaf.h"
 using namespace kaf_graphics;
 
-int	main(void)
+int	main(int argc, char **argv)
 {
-	//Constructor with arguments.
-	object yay("../object_files/cube.obj");
-	object supper("");
+	if (argc == 2)
+	{
+		object yay(argv[1]);
+	}
 	return (0);
 }

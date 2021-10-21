@@ -9,6 +9,7 @@ int	main(int argc, char **argv)
 		vec3 p0(stoi(argv[1]), stoi(argv[2]), stoi(argv[3]));
 		vec3 p1(stoi(argv[4]), stoi(argv[5]), stoi(argv[6]));
 		vec3 p2(stoi(argv[7]), stoi(argv[8]), stoi(argv[9]));
+		vec3 n(1.0f, 2.0f, 3.0f);
 		//Constructor with no arguments
 		vec3 p3;
 		vec3 p4;
@@ -17,6 +18,8 @@ int	main(int argc, char **argv)
 		triangle tri2(p3, p4, p5);
 		tri.print();
 		tri2.print();
+		tri.set_normal(0, n);
+		tri.get_normal(0).print();
 	}
 	return (0);
 }
