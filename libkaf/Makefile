@@ -29,8 +29,9 @@ SRC_LIST = \
 	$(SLASH)kaf_putstr.cpp \
 	$(SLASH)kaf_swap.cpp \
 	$(SLASH)kaf_vectors.cpp \
-	$(SLASH)kaf_parser.cpp \
-	$(SLASH)kaf_helpers_parsing.cpp \
+	$(SLASH)kaf_object_constructor.cpp \
+	$(SLASH)kaf_object_methods.cpp \
+	$(SLASH)kaf_object_helper_methods.cpp \
 
 HEADERS = ./libkaf.h
 

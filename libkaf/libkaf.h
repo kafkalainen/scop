@@ -114,22 +114,31 @@ namespace kaf_graphics
 	class object
 	{
 		private:
-			int					vertex_indices;
-			int					uv_indices;
-			int					normal_indices;
+			bool				initialized;
 			string				name;
+			void				kaf_parse_name(const string &line,
+									string *name);
+			void				kaf_parse_vertex(const string &line,
+									vector<glm::vec3> &tmp_vectices);
+			void				kaf_parse_texel(const string &line,
+									vector<glm::vec2> &tmp_texels);
 			void				kaf_extract_int_data(string sub_string,
 									int &v, int &vt, int &vn);
 			void				kaf_parse_facing(string line,
 									vector<unsigned int> &vectors,
 									vector<unsigned int> &normals,
 									vector<unsigned int> &texels);
+			void				kaf_copy_vertices(vector <unsigned int> &indices,
+									vector <glm::vec3> &tmp_vertices);
 		public:
 			vector<glm::vec3>	vertices;
 			vector<glm::vec3>	normals;
 			vector<glm::vec3>	texels;
-			object(string file);
+			object(void);
+			void	load_from_file(string file);
 			void	print(void);
+			void	print_name(void);
+			void	print_vertices(void);
 	};
 	//inheritance in c++ is done with : notation.
 	//class arithmetic: public vec3
@@ -152,7 +161,5 @@ void		kaf_swapi(int &a, int &b);
 void		kaf_swapf(float &a, float &b);
 void		kaf_swapd(double &a, double &b);
 void		kaf_extract_int_data(string sub_string, int &v, int &vt, int &vn);
-// void		kaf_parse_facing(string line, vector<glm::vec3> &vectices,
-// 			vector<glm::vec3> &normals, vector<glm::vec2> &texels);
 
 #endif

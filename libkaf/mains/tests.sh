@@ -1,21 +1,5 @@
 #!/bin/bash
 
-# kaf_nblen_test()
-# {
-# 	nb=$1
-# 	option=$2
-# 	answer=$3
-# 	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-# 	echo "++ TEST $nb ++"
-
-# 	if diff <(./tester $option | cat -e) <(echo "$answer");
-# 	then
-# 		echo -e "OK\n"
-# 	else
-# 		echo -e "KO\n"
-# 	fi
-# }
-
 kaf_nblen_test()
 {
 	nb=$1
@@ -100,14 +84,15 @@ kaf_tri_test()
 	fi
 }
 
-kaf_mesh_test()
+kaf_object_test()
 {
 	nb=$1
 	object=$2
+	answer=$3
 	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 	echo "+++++++++<-YOUR OUTPUT +++++++++++++++ TEST $nb +++++++++++++++ -> TEST OUTPUT++++++++++"
 
-	if diff -y <(./tester | cat -e) $object;
+	if diff -y <(./tester $object | cat -e) $answer;
 	then
 		echo -e "OK\n"
 	else
@@ -131,5 +116,6 @@ kaf_uv_test '1' '1' '2'
 g++ -o tester -Wall -Wextra -Werror -g kaf_triangles_main.cpp -I.. -L.. -lkaf
 kaf_tri_test '1' '1 2 3 4 5 6 7 8 9'
 g++ -o tester -Wall -Wextra -Werror -g kaf_object_main.cpp -I.. -L.. -lkaf
-kaf_mesh_test '1' 'object_files/cube.obj'
-kaf_mesh_test '2' 'object_files/naanna.obj'
+kaf_object_test '1' 'empty' 'answers/invalid_obj_file'
+kaf_object_test '2' '../object_files/naanna.obj' 'answers/object_error'
+kaf_object_test '3' '../object_files/square.obj' 'answers/square'
