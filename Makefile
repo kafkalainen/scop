@@ -4,6 +4,7 @@ SRCS = \
 	main.cpp \
 	shader.cpp \
 	utils.cpp \
+	dds_parser.cpp \
 
 HEADERS = \
 	libkaf/libkaf.h \
@@ -26,14 +27,14 @@ GLFW_SRCS = $(ABS_DIR)/glfw-3.3.4
 GLFW_LIBS = $(ABS_DIR)/glfw
 GLEW_SRCS = $(ABS_DIR)/glew-1.13.0
 GLEW_LIBS = $(ABS_DIR)/glew
-CFLAGS_GLFW = $(shell PKG_CONFIG_PATH=/home/kafkalainen/Documents/cplusplus/glfw/lib/pkgconfig && pkg-config --cflags glfw3)
-CFLAGS_GLEW = $(shell PKG_CONFIG_PATH=/home/kafkalainen/Documents/cplusplus/glew/lib64/pkgconfig && pkg-config --cflags glew)
+CFLAGS_GLFW = $(shell export PKG_CONFIG_PATH=/home/kafkalainen/Documents/cplusplus/glfw/lib/pkgconfig && pkg-config --cflags glfw3)
+CFLAGS_GLEW = $(shell export PKG_CONFIG_PATH=/home/kafkalainen/Documents/cplusplus/glew/lib64/pkgconfig && pkg-config --cflags glew)
 CFLAGS_SDL = $(shell $(ABS_DIR)/SDL2/bin/sdl2-config --cflags)
-CFLAGS = -Wall -Wextra -Werror -g $(shell pkg-config --cflags gl) $(CFLAGS_SDL) $(CFLAGS_GLEW) $(CFLAGS_GLFW) -Wl,-rpath,$(LIBS_GLEW)
-LIBS_GLFW = $(shell PKG_CONFIG_PATH=/home/kafkalainen/Documents/cplusplus/glfw/lib/pkgconfig && pkg-config --static --libs glfw3)
-LIBS_GLEW = $(shell PKG_CONFIG_PATH=/home/kafkalainen/Documents/cplusplus/glew/lib64/pkgconfig && pkg-config --static --libs glew)
+CFLAGS = -Wall -Wextra -Werror -g $(shell pkg-config --cflags gl) $(CFLAGS_SDL) $(CFLAGS_GLEW) $(CFLAGS_GLFW)
+LIBS_GLFW = $(shell export PKG_CONFIG_PATH=/home/kafkalainen/Documents/cplusplus/glfw/lib/pkgconfig && pkg-config --static --libs glfw3)
+LIBS_GLEW = $(shell export PKG_CONFIG_PATH=/home/kafkalainen/Documents/cplusplus/glew/lib64/pkgconfig && pkg-config --static --libs glew)
 LIBS_SDL = $(shell $(ABS_DIR)/SDL2/bin/sdl2-config --libs)
-LDFLAGS = -lkaf $(LIBS_GLEW) $(LIBS_GLFW) $(LIBS_SDL)
+LDFLAGS = -lkaf $(LIBS_GLEW) $(LIBS_GLFW) $(LIBS_SDL) "-Wl,-rpath,$(GLEW_LIBS)/lib64" "-Wl,-rpath,$(GLFW_LIBS)/lib"
 SLASH = /
 MKDIR := mkdir -p
 RM = /bin/rm -rf

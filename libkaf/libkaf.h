@@ -157,6 +157,7 @@ int			kaf_open(const char *name);
 void		kaf_putendl(const string str);
 void		kaf_putstr(const string str);
 int			kaf_nblen(int nb);
+int			kaf_strncmp(const char *s1, const char *s2, size_t n);
 void		kaf_swapi(int &a, int &b);
 void		kaf_swapf(float &a, float &b);
 void		kaf_swapd(double &a, double &b);

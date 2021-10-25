@@ -1,5 +1,7 @@
 
 #include "../headers/nerd.h"
+#include "../glew/include/GL/glew.h"
+#include "../glfw/include/GLFW/glfw3.h"
 
 int	init_glfw()
 {

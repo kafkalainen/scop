@@ -27,6 +27,7 @@ SRC_LIST = \
 	$(SLASH)kaf_nblen.cpp \
 	$(SLASH)kaf_putendl.cpp \
 	$(SLASH)kaf_putstr.cpp \
+	$(SLASH)kaf_strncmp.cpp \
 	$(SLASH)kaf_swap.cpp \
 	$(SLASH)kaf_vectors.cpp \
 	$(SLASH)kaf_object_constructor.cpp \
