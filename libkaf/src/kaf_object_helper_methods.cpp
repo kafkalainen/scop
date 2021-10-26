@@ -81,17 +81,25 @@ namespace kaf_graphics
 		normals.push_back(vn[2]);
 	}
 
-	void	object::kaf_copy_vertices(vector <unsigned int> &indices,
-			vector <glm::vec3> &tmp_vertices)
+	void	object::kaf_copy_data(t_object_temp *temp)
 	{
 		unsigned int i;
-		unsigned int cur_idx;
+		unsigned int cur_vertex_idx;
+		unsigned int cur_normal_idx;
+		unsigned int cur_texel_idx;
+
 		i = 0;
-		while (i < indices.size())
+		while (i < temp->vertex_indices.size())
 		{
-			cur_idx = indices[i];
-			glm::vec3 vertex = tmp_vertices[cur_idx - 1];
+			cur_vertex_idx = temp->vertex_indices[i];
+			cur_normal_idx = temp->normal_indices[i];
+			cur_texel_idx = temp->texel_indices[i];
+			glm::vec3 vertex = temp->tmp_vertices[cur_vertex_idx - 1];
+			glm::vec2 texel = temp->tmp_texels[cur_texel_idx - 1];
+			glm::vec3 normal = temp->tmp_normals[cur_normal_idx - 1];
 			vertices.push_back(vertex);
+			texels.push_back(texel);
+			normals.push_back(normal);
 			i++;
 		}
 	}

@@ -113,6 +113,15 @@ namespace kaf_graphics
 	};
 	class object
 	{
+		typedef struct	t_object_temp
+		{
+			vector <unsigned int>	vertex_indices;
+			vector <unsigned int>	texel_indices;
+			vector <unsigned int>	normal_indices;
+			vector <glm::vec3>		tmp_vertices;
+			vector <glm::vec3>		tmp_normals;
+			vector <glm::vec2>		tmp_texels;
+		}				s_object_temp;
 		private:
 			bool				initialized;
 			string				name;
@@ -128,12 +137,11 @@ namespace kaf_graphics
 									vector<unsigned int> &vectors,
 									vector<unsigned int> &normals,
 									vector<unsigned int> &texels);
-			void				kaf_copy_vertices(vector <unsigned int> &indices,
-									vector <glm::vec3> &tmp_vertices);
+			void				kaf_copy_data(t_object_temp *temp);
 		public:
 			vector<glm::vec3>	vertices;
 			vector<glm::vec3>	normals;
-			vector<glm::vec3>	texels;
+			vector<glm::vec2>	texels;
 			object(void);
 			void	load_from_file(string file);
 			void	print(void);

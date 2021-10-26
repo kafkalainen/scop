@@ -14,12 +14,7 @@ namespace kaf_graphics
 			throw ("ERROR: Invalid obj file.");
 		string					line;
 		ifstream				obj_file(file);
-		vector <unsigned int>	vertex_indices;
-		vector <unsigned int>	texel_indices;
-		vector <unsigned int>	normal_indices;
-		vector <glm::vec3>		tmp_vertices;
-		vector <glm::vec3>		tmp_normals;
-		vector <glm::vec2>		tmp_texels;
+		t_object_temp			temp;
 		if (!obj_file.is_open())
 			throw ("ERROR: Couldn't open a file.");
 		while (!obj_file.eof() && getline(obj_file, line))
@@ -27,16 +22,17 @@ namespace kaf_graphics
 			if (line[0] == 'g')
 				kaf_parse_name(line, &name);
 			else if (line.find("v ") == 0)
-				kaf_parse_vertex(line, tmp_vertices);
+				kaf_parse_vertex(line, temp.tmp_vertices);
 			else if (line.find("vn") == 0)
-				kaf_parse_vertex(line, tmp_normals);
+				kaf_parse_vertex(line, temp.tmp_normals);
 			else if (line.find("vt") == 0)
-				kaf_parse_texel(line, tmp_texels);
+				kaf_parse_texel(line, temp.tmp_texels);
 			else if (line[0] == 'f')
-				kaf_parse_facing(line, vertex_indices, normal_indices, texel_indices);
+				kaf_parse_facing(line, temp.vertex_indices,
+					temp.normal_indices, temp.texel_indices);
 		}
 		obj_file.close();
-		kaf_copy_vertices(vertex_indices, tmp_vertices);
+		kaf_copy_data(&temp);
 		initialized = true;
 	}
 }
