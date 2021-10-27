@@ -14,6 +14,7 @@ int	main(int argc, char **argv)
 				test_object.load_from_file("");
 				test_object.print_name();
 				test_object.print_vertices();
+				test_object.print_texels();
 			}
 			catch (char const *result)
 			{
@@ -28,6 +29,7 @@ int	main(int argc, char **argv)
 				test_object.load_from_file(file_name);
 				test_object.print_name();
 				test_object.print_vertices();
+				test_object.print_texels();
 			}
 			catch (char const *result)
 			{

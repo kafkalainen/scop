@@ -20,7 +20,7 @@ int	init_glfw()
 
 int	create_window(GLFWwindow **window)
 {
-	*window = glfwCreateWindow( 1024, 768, "Tutorial 02 - Red triangle", NULL, NULL);
+	*window = glfwCreateWindow( 1024, 768, "Particles", NULL, NULL);
 	if( *window == NULL ){
 		cout << "Failed to open GLFW window." << endl;
 		glfwTerminate();

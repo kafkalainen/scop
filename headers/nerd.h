@@ -34,6 +34,8 @@ typedef struct	t_DDS
 }				s_DDS;
 
 int		init_glfw();
+void	handle_key_input(GLFWwindow *window, t_camera *cam, float delta_time);
+void	handle_mouse_movement(GLFWwindow *window, t_camera *cam);
 int		create_window(GLFWwindow **window);
 GLuint	loadDDS(const char * imagepath);
 void	update_world(GLFWwindow *window, t_camera *cam);

@@ -9,16 +9,18 @@ typedef struct	t_screen_xy
 
 typedef struct	t_camera
 {
+	glm::mat4	model;
 	glm::mat4	view_matrix;
 	glm::mat4	projection_matrix;
 	glm::vec3	position;
 	glm::vec3	direction;
 	glm::vec3	right;
 	glm::vec3	up;
+	t_screen_xy	mouse;
+	t_screen_xy	middle;
 	double		last_time;
 	double		current_time;
 	double		delta_time;
-	t_screen_xy	mouse;
 	float		yaw;
 	float		pitch;
 	float		initial_fov;
@@ -26,7 +28,6 @@ typedef struct	t_camera
 	float		mouse_speed;
 	int			win_width;
 	int			win_height;
-	t_screen_xy	middle;
 }				s_camera;
 
 

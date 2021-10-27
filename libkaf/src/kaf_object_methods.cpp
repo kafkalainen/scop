@@ -21,4 +21,18 @@ namespace kaf_graphics
 			i++;
 		}
 	}
+
+	void	object::print_texels(void)
+	{
+		unsigned int	i;
+		glm::vec2		v;
+
+		i = 0;
+		while (i < texels.size())
+		{
+			v = texels[i];
+			cout << "x: " << v.x << " y: " << v.y << endl;
+			i++;
+		}
+	}
 }

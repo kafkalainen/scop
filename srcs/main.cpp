@@ -30,71 +30,56 @@ int	main(int argc, char **argv)
 	GLuint VertexArrayID;
 	glGenVertexArrays(1, &VertexArrayID);
 	glBindVertexArray(VertexArrayID);
-	// Create and compile our GLSL program from the shaders
-	GLuint programID = LoadShaders( "srcs/shaders/TransformVertexShader.vertexshader", "srcs/shaders/TextureFragmentShader.fragmentshader" );
-	GLuint MatrixID = glGetUniformLocation(programID, "MVP");
-	GLuint Texture = loadDDS("srcs/textures/uvtemplate.DDS");
-	GLuint TextureID  = glGetUniformLocation(programID, "myTextureSampler");
+	GLuint program_id = LoadShaders( "srcs/shaders/TransformVertexShader.vertexshader", "srcs/shaders/TextureFragmentShader.fragmentshader" );
+	GLuint matrix_id = glGetUniformLocation(program_id, "MVP");
+	GLuint texture = loadDDS("srcs/textures/uvmap.DDS");
+	GLuint texture_id  = glGetUniformLocation(program_id, "myTextureSampler");
 	object box;
 	try
 	{
 		box.load_from_file(argv[1]);
-		box.print_vertices();
 	}
 	catch (char const *str)
 	{
 		cout << str << endl;
 		return (EXIT_FAILURE);
 	}
-	GLuint vertexbuffer;
-	glGenBuffers(1, &vertexbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	GLuint vertex_buffer;
+	glGenBuffers(1, &vertex_buffer);
+	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
 	glBufferData(GL_ARRAY_BUFFER, box.vertices.size() * sizeof(glm::vec3), &box.vertices[0], GL_STATIC_DRAW);
 
-	GLuint uvbuffer;
-	glGenBuffers(1, &uvbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
+	GLuint uv_buffer;
+	glGenBuffers(1, &uv_buffer);
+	glBindBuffer(GL_ARRAY_BUFFER, uv_buffer);
 	glBufferData(GL_ARRAY_BUFFER, box.texels.size() * sizeof(glm::vec2), &box.texels[0], GL_STATIC_DRAW);
 	while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS
 		&& glfwWindowShouldClose(window) == 0)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glUseProgram(programID);
+		glUseProgram(program_id);
 		update_world(window, &cam);
-		mat4 Model = mat4(1.0f);
-		mat4 MVP = cam.projection_matrix * cam.view_matrix * Model;
-		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+		mat4 MVP = cam.projection_matrix * cam.view_matrix * cam.model;
+		glUniformMatrix4fv(matrix_id, 1, GL_FALSE, &MVP[0][0]);
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, Texture);
-		glUniform1i(TextureID, 0);
+		glBindTexture(GL_TEXTURE_2D, texture);
+		glUniform1i(texture_id, 0);
 		glEnableVertexAttribArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-		glVertexAttribPointer(
-			0,                  // attribute. No particular reason for 0, but must match the layout in the shader.
-			3,                  // size
-			GL_FLOAT,           // type
-			GL_FALSE,           // normalized?
-			0,                  // stride
-			(void*)0            // array buffer offset
-		);
+		glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 		glEnableVertexAttribArray(1);
-		glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
-		glVertexAttribPointer(
-			1,                                // attribute. No particular reason for 1, but must match the layout in the shader.
-			2,                                // size : U+V => 2
-			GL_FLOAT,                         // type
-			GL_FALSE,                         // normalized?
-			0,                                // stride
-			(void*)0                          // array buffer offset
-		);
-		glDrawArrays(GL_TRIANGLES, 0, 12 * 3);
+		glBindBuffer(GL_ARRAY_BUFFER, uv_buffer);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+		glDrawArrays(GL_TRIANGLES, 0, box.vertices.size());
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
-	glDeleteBuffers(1, &vertexbuffer);
-	glDeleteProgram(programID);
+	glDeleteBuffers(1, &vertex_buffer);
+	glDeleteBuffers(1, &uv_buffer);
+	glDeleteProgram(program_id);
+	glDeleteTextures(1, &texture);
 	glDeleteVertexArrays(1, &VertexArrayID);
 	glfwTerminate();
 	return (EXIT_SUCCESS);

@@ -137,7 +137,7 @@ namespace kaf_graphics
 									vector<unsigned int> &vectors,
 									vector<unsigned int> &normals,
 									vector<unsigned int> &texels);
-			void				kaf_copy_data(t_object_temp *temp);
+			void				kaf_index_object_data(t_object_temp *temp);
 		public:
 			vector<glm::vec3>	vertices;
 			vector<glm::vec3>	normals;
@@ -146,6 +146,7 @@ namespace kaf_graphics
 			void	load_from_file(string file);
 			void	print(void);
 			void	print_name(void);
+			void	print_texels(void);
 			void	print_vertices(void);
 	};
 	//inheritance in c++ is done with : notation.

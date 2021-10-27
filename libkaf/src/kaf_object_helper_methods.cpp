@@ -81,7 +81,7 @@ namespace kaf_graphics
 		normals.push_back(vn[2]);
 	}
 
-	void	object::kaf_copy_data(t_object_temp *temp)
+	void	object::kaf_index_object_data(t_object_temp *temp)
 	{
 		unsigned int i;
 		unsigned int cur_vertex_idx;

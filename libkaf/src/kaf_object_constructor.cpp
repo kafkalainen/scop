@@ -32,7 +32,7 @@ namespace kaf_graphics
 					temp.normal_indices, temp.texel_indices);
 		}
 		obj_file.close();
-		kaf_copy_data(&temp);
+		kaf_index_object_data(&temp);
 		initialized = true;
 	}
 }
