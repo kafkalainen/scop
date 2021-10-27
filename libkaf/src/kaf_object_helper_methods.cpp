@@ -29,7 +29,7 @@ namespace kaf_graphics
 		stringstream	data(line);
 
 		data >> identifier >> vals[0] >> vals[1];
-		glm::vec2 t(vals[0], vals[1]);
+		glm::vec2 t(vals[0], -vals[1]);
 		tmp_texels.push_back(t);
 	}
 

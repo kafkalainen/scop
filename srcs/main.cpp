@@ -23,7 +23,10 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	}
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
-	glClearColor(0.0f, 0.0f, 0.5f, 0.0f);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwPollEvents();
+    glfwSetCursorPos(window, cam.middle.x, cam.middle.y);
+	glClearColor(0.0f, 0.0f, 0.2f, 0.0f);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glEnable(GL_CULL_FACE);
