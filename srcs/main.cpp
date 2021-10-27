@@ -7,7 +7,9 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		cout << "ERROR: Incorrect number of arguments." << endl;
 	GLFWwindow *window;
+	t_camera	cam;
 
+	initialize_camera_position(&cam);
 	if (init_glfw())
 		return (EXIT_FAILURE);
 	if (create_window(&window))
@@ -24,20 +26,13 @@ int	main(int argc, char **argv)
 	glClearColor(0.0f, 0.0f, 0.5f, 0.0f);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
+	glEnable(GL_CULL_FACE);
 	GLuint VertexArrayID;
 	glGenVertexArrays(1, &VertexArrayID);
 	glBindVertexArray(VertexArrayID);
 	// Create and compile our GLSL program from the shaders
 	GLuint programID = LoadShaders( "srcs/shaders/TransformVertexShader.vertexshader", "srcs/shaders/TextureFragmentShader.fragmentshader" );
 	GLuint MatrixID = glGetUniformLocation(programID, "MVP");
-	mat4 Projection = perspective(radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
-	mat4 View = lookAt(
-								glm::vec3(4,3,3), // Camera is at (4,3,3), in World Space
-								glm::vec3(0,0,0), // and looks at the origin
-								glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
-	);
-	mat4 Model = mat4(1.0f);
-	mat4 MVP = Projection * View * Model;
 	GLuint Texture = loadDDS("srcs/textures/uvtemplate.DDS");
 	GLuint TextureID  = glGetUniformLocation(programID, "myTextureSampler");
 	object box;
@@ -65,6 +60,9 @@ int	main(int argc, char **argv)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glUseProgram(programID);
+		update_world(window, &cam);
+		mat4 Model = mat4(1.0f);
+		mat4 MVP = cam.projection_matrix * cam.view_matrix * Model;
 		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, Texture);

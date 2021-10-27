@@ -6,6 +6,10 @@ g++ -Wall -Wextra -Werror ascii.cpp -o a.out
 
 - I find easier to read underscore hello_world vs. helloWorld. Pros and cons can be read from here  [Link](https://whatheco.de/2011/02/10/camelcase-vs-underscores-scientific-showdown/)
 
+## Learned through the project
+
+- Conversion from spherical to cartesian coordinates
+
 ## Key graphics concepts
 
 Term | Explanation

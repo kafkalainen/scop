@@ -20,6 +20,7 @@ const int SCREEN_FPS = 60;
 using namespace glm;
 #include "../libkaf/libkaf.h"
 #include "shader.hpp"
+#include "camera.hpp"
 
 typedef struct	t_DDS
 {
@@ -35,4 +36,5 @@ typedef struct	t_DDS
 int		init_glfw();
 int		create_window(GLFWwindow **window);
 GLuint	loadDDS(const char * imagepath);
+void	update_world(GLFWwindow *window, t_camera *cam);
 #endif

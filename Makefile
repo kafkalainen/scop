@@ -5,6 +5,8 @@ SRCS = \
 	shader.cpp \
 	utils.cpp \
 	dds_parser.cpp \
+	controls.cpp \
+	camera.cpp \
 
 HEADERS = \
 	libkaf/libkaf.h \
