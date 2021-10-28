@@ -35,4 +35,18 @@ namespace kaf_graphics
 			i++;
 		}
 	}
+
+	void	object::print_normals(void)
+	{
+		unsigned int	i;
+		glm::vec3		v;
+
+		i = 0;
+		while (i < normals.size())
+		{
+			v = normals[i];
+			cout << "x: " << v.x << " y: " << v.y << " z: " << v.z << endl;
+			i++;
+		}
+	}
 }

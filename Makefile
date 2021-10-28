@@ -2,15 +2,16 @@ NAME = graphics_nerd
 
 SRCS = \
 	main.cpp \
-	shader.cpp \
-	utils.cpp \
-	dds_parser.cpp \
-	controls.cpp \
 	camera.cpp \
+	controls.cpp \
+	dds_parser.cpp \
+	shader.cpp \
+	systems.cpp \
+	utils.cpp \
 
 HEADERS = \
 	libkaf/libkaf.h \
-	headers/nerd.h
+	headers/nerd.h \
 
 CC = g++
 

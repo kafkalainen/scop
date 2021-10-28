@@ -146,6 +146,7 @@ namespace kaf_graphics
 			void	load_from_file(string file);
 			void	print(void);
 			void	print_name(void);
+			void	print_normals(void);
 			void	print_texels(void);
 			void	print_vertices(void);
 	};

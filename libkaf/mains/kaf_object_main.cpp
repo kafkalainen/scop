@@ -15,6 +15,7 @@ int	main(int argc, char **argv)
 				test_object.print_name();
 				test_object.print_vertices();
 				test_object.print_texels();
+				test_object.print_normals();
 			}
 			catch (char const *result)
 			{
@@ -30,6 +31,7 @@ int	main(int argc, char **argv)
 				test_object.print_name();
 				test_object.print_vertices();
 				test_object.print_texels();
+				test_object.print_normals();
 			}
 			catch (char const *result)
 			{

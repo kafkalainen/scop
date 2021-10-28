@@ -35,13 +35,20 @@ typedef struct	t_DDS
 
 typedef struct	t_main
 {
-	GLuint	vertex_array_id;
-	GLuint	program_id;
-	GLuint	matrix_id;
-	GLuint	texture;
-	GLuint	texture_id;
-	GLuint	vertex_buffer;
-	GLuint	texel_buffer;
+	GLuint					vertex_array_id;
+	GLuint					program_id;
+	GLuint					matrix_id;
+	GLuint					view_matrix_id;
+	GLuint					model_matrix_id;
+	GLuint					texture;
+	GLuint					texture_id;
+	vector<unsigned int>	indices;
+	GLuint					vertex_buffer;
+	GLuint					texel_buffer;
+	GLuint					normal_buffer;
+	GLuint					element_buffer;
+	GLuint					light_id;
+	object					box;
 }				s_main;
 
 int		init_glfw();
@@ -50,6 +57,7 @@ void	handle_key_input(GLFWwindow *window, t_camera *cam, float delta_time);
 void	handle_mouse_movement(GLFWwindow *window, t_camera *cam);
 int		create_window(GLFWwindow **window);
 GLuint	loadDDS(const char * imagepath);
+int		run_main_loop(GLFWwindow *window, t_main *main, t_camera *cam);
 void	update_world(GLFWwindow *window, t_camera *cam);
 void	clean_up_gl(t_main *main);
 #endif
