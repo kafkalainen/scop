@@ -1,6 +1,14 @@
 #include "../headers/nerd.h"
 using namespace glm;
 
+void	initialize_input(GLFWwindow *window, t_screen_xy middle)
+{
+	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwPollEvents();
+    glfwSetCursorPos(window, middle.x, middle.y);
+}
+
 void	handle_mouse_movement(GLFWwindow *window, t_camera *cam)
 {
 	glfwGetCursorPos(window, &cam->mouse.x, &cam->mouse.y);
@@ -31,4 +39,13 @@ void	update_world(GLFWwindow *window, t_camera *cam)
 	update_projection_matrix(cam);
 	update_view_matrix(cam);
 	cam->last_time = cam->current_time;
+}
+
+void	clean_up_gl(t_main *main)
+{
+	glDeleteBuffers(1, &main->vertex_buffer);
+	glDeleteBuffers(1, &main->texel_buffer);
+	glDeleteProgram(main->program_id);
+	glDeleteTextures(1, &main->texture);
+	glDeleteVertexArrays(1, &main->vertex_array_id);
 }
