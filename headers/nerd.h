@@ -19,6 +19,7 @@ const int SCREEN_FPS = 60;
 #include <glm/gtc/matrix_transform.hpp>
 using namespace glm;
 #include "../libkaf/libkaf.h"
+using namespace kaf_graphics;
 #include "shader.hpp"
 #include "camera.hpp"
 
@@ -60,4 +61,5 @@ GLuint	loadDDS(const char * imagepath);
 int		run_main_loop(GLFWwindow *window, t_main *main, t_camera *cam);
 void	update_world(GLFWwindow *window, t_camera *cam);
 void	clean_up_gl(t_main *main);
+
 #endif

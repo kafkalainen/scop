@@ -30,49 +30,38 @@ int	main(int argc, char **argv)
 	glEnable(GL_CULL_FACE);
 	glGenVertexArrays(1, &main.vertex_array_id);
 	glBindVertexArray(main.vertex_array_id);
-	main.program_id = LoadShaders( "srcs/shaders/TransformVertexShader.vertexshader", "srcs/shaders/TextureFragmentShader.fragmentshader" );
+	main.program_id = LoadShaders( "srcs/shaders/StandardShading.vertexshader", "srcs/shaders/StandardShading.fragmentshader" );
 	main.matrix_id = glGetUniformLocation(main.program_id, "MVP");
-	main.texture = loadDDS("srcs/textures/uvmap.DDS");
+	main.view_matrix_id = glGetUniformLocation(main.program_id, "V");
+	main.model_matrix_id = glGetUniformLocation(main.program_id, "M");
+	main.texture = loadDDS("srcs/textures/suzanne_uvmap.DDS");
 	main.texture_id  = glGetUniformLocation(main.program_id, "myTextureSampler");
-	object box;
 	try
 	{
-		box.load_from_file(argv[1]);
+		main.box.load_from_file(argv[1]);
+		main.box.index_VBO();
 	}
 	catch (char const *str)
 	{
 		cout << str << endl;
+		clean_up_gl(&main);
 		return (EXIT_FAILURE);
 	}
 	glGenBuffers(1, &main.vertex_buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, main.vertex_buffer);
-	glBufferData(GL_ARRAY_BUFFER, box.vertices.size() * sizeof(glm::vec3), &box.vertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, main.box.vertices.size() * sizeof(glm::vec3), &main.box.vertices[0], GL_STATIC_DRAW);
 	glGenBuffers(1, &main.texel_buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, main.texel_buffer);
-	glBufferData(GL_ARRAY_BUFFER, box.texels.size() * sizeof(glm::vec2), &box.texels[0], GL_STATIC_DRAW);
-	while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS
-		&& glfwWindowShouldClose(window) == 0)
-	{
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glUseProgram(main.program_id);
-		update_world(window, &cam);
-		mat4 MVP = cam.projection_matrix * cam.view_matrix * cam.model;
-		glUniformMatrix4fv(main.matrix_id, 1, GL_FALSE, &MVP[0][0]);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, main.texture);
-		glUniform1i(main.texture_id, 0);
-		glEnableVertexAttribArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, main.vertex_buffer);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-		glEnableVertexAttribArray(1);
-		glBindBuffer(GL_ARRAY_BUFFER, main.texel_buffer);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
-		glDrawArrays(GL_TRIANGLES, 0, box.vertices.size());
-		glDisableVertexAttribArray(0);
-		glDisableVertexAttribArray(1);
-		glfwSwapBuffers(window);
-		glfwPollEvents();
-	}
+	glBufferData(GL_ARRAY_BUFFER, main.box.texels.size() * sizeof(glm::vec2), &main.box.texels[0], GL_STATIC_DRAW);
+	glGenBuffers(1, &main.normal_buffer);
+	glBindBuffer(GL_ARRAY_BUFFER, main.normal_buffer);
+	glBufferData(GL_ARRAY_BUFFER, main.box.normals.size() * sizeof(glm::vec3), &main.box.normals[0], GL_STATIC_DRAW);
+	glGenBuffers(1, &main.element_buffer);
+ 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, main.element_buffer);
+ 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, main.box.indices.size() * sizeof(unsigned short), &main.box.indices[0], GL_STATIC_DRAW);
+	glUseProgram(main.program_id);
+	main.light_id = glGetUniformLocation(main.program_id, "LightPosition_worldspace");
+	run_main_loop(window, &main, &cam);
 	clean_up_gl(&main);
 	glfwTerminate();
 	return (EXIT_SUCCESS);

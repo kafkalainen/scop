@@ -17,6 +17,7 @@ int	run_main_loop(GLFWwindow *window, t_main *main, t_camera *cam)
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, main->texture);
 		glUniform1i(main->texture_id, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, main->element_buffer);
 		glEnableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, main->vertex_buffer);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
@@ -26,7 +27,7 @@ int	run_main_loop(GLFWwindow *window, t_main *main, t_camera *cam)
 		glEnableVertexAttribArray(2);
 		glBindBuffer(GL_ARRAY_BUFFER, main->normal_buffer);
 		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-		glDrawArrays(GL_TRIANGLES, 0, main->box.vertices.size());
+		glDrawElements(GL_TRIANGLES, main->box.indices.size(), GL_UNSIGNED_SHORT, (void*)0);
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
 		glDisableVertexAttribArray(2);
