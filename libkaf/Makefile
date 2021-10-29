@@ -33,6 +33,8 @@ SRC_LIST = \
 	$(SLASH)kaf_object_constructor.cpp \
 	$(SLASH)kaf_object_methods.cpp \
 	$(SLASH)kaf_object_helper_methods.cpp \
+	$(SLASH)kaf_memcpy.cpp \
+	$(SLASH)kaf_memcmp.cpp \
 
 HEADERS = ./libkaf.h
 

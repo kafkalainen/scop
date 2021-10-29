@@ -6,10 +6,22 @@
 # include <sstream>
 # include <list>
 # include <vector>
+# include <map>
 # include "src/kaf_swap.tpp"
 # include <glm/glm.hpp>
 # include <glm/gtc/matrix_transform.hpp>
   using namespace std;
+
+int			kaf_open(const char *name);
+void		kaf_putendl(const string str);
+void		kaf_putstr(const string str);
+int			kaf_nblen(int nb);
+int			kaf_strncmp(const char *s1, const char *s2, size_t n);
+int			kaf_memcmp(const void *s1, const void *s2, size_t n);
+void		*kaf_memcpy(void *dest, const void *src, size_t n);
+void		kaf_swapi(int &a, int &b);
+void		kaf_swapf(float &a, float &b);
+void		kaf_swapd(double &a, double &b);
 
 namespace kaf_swapping
 {
@@ -115,6 +127,7 @@ namespace kaf_graphics
 	{
 		typedef struct	t_object_temp
 		{
+			vector <unsigned short>	VBO_indices;
 			vector <unsigned int>	vertex_indices;
 			vector <unsigned int>	texel_indices;
 			vector <unsigned int>	normal_indices;
@@ -122,33 +135,53 @@ namespace kaf_graphics
 			vector <glm::vec3>		tmp_normals;
 			vector <glm::vec2>		tmp_texels;
 		}				s_object_temp;
+		typedef struct t_packed_vertex
+		{
+			glm::vec3	vertex;
+			glm::vec2	texel;
+			glm::vec3	normal;
+			bool operator<(const t_packed_vertex that) const{
+				return kaf_memcmp((void*)this, (void*)&that, sizeof(t_packed_vertex))>0;
+			};
+		}				s_packed_vertex;
 		private:
-			bool				initialized;
-			string				name;
-			void				kaf_parse_name(const string &line,
-									string *name);
-			void				kaf_parse_vertex(const string &line,
-									vector<glm::vec3> &tmp_vectices);
-			void				kaf_parse_texel(const string &line,
-									vector<glm::vec2> &tmp_texels);
-			void				kaf_extract_int_data(string sub_string,
-									int &v, int &vt, int &vn);
-			void				kaf_parse_facing(string line,
-									vector<unsigned int> &vectors,
-									vector<unsigned int> &normals,
-									vector<unsigned int> &texels);
-			void				kaf_index_object_data(t_object_temp *temp);
+			bool		initialized;
+			bool		indexed_VBO;
+			string		name;
+			void		kaf_parse_name(const string &line,
+							string *name);
+			void		kaf_parse_vertex(const string &line,
+							vector<glm::vec3> &tmp_vectices);
+			void		kaf_parse_texel(const string &line,
+							vector<glm::vec2> &tmp_texels);
+			void		kaf_extract_int_data(string sub_string,
+							int &v, int &vt, int &vn);
+			void		kaf_parse_facing(string line,
+							vector<unsigned int> &vectors,
+							vector<unsigned int> &normals,
+							vector<unsigned int> &texels);
+			void		kaf_index_object_data(t_object_temp *temp);
+			void		clear_tmp_vectors(t_object_temp *temp);
+			bool		is_it_same_vertex(t_packed_vertex &one,
+							t_packed_vertex &two);
+			bool		get_similar_vertex_index_fast(
+							t_packed_vertex &packed,
+							map<t_packed_vertex, unsigned short> &vertex_to_out_index,
+							unsigned short &result);
 		public:
-			vector<glm::vec3>	vertices;
-			vector<glm::vec3>	normals;
-			vector<glm::vec2>	texels;
+			vector<glm::vec3>		vertices;
+			vector<glm::vec3>		normals;
+			vector<glm::vec2>		texels;
+			vector<unsigned short>	indices;
 			object(void);
 			void	load_from_file(string file);
+			void	index_VBO(void);
 			void	print(void);
 			void	print_name(void);
 			void	print_normals(void);
 			void	print_texels(void);
 			void	print_vertices(void);
+			void	print_indices(void);
 	};
 	//inheritance in c++ is done with : notation.
 	//class arithmetic: public vec3
@@ -160,17 +193,4 @@ namespace kaf_graphics
 			vec3	dec(vec3 a, vec3 b);
 	};
 }
-
-  using namespace kaf_graphics;
-
-int			kaf_open(const char *name);
-void		kaf_putendl(const string str);
-void		kaf_putstr(const string str);
-int			kaf_nblen(int nb);
-int			kaf_strncmp(const char *s1, const char *s2, size_t n);
-void		kaf_swapi(int &a, int &b);
-void		kaf_swapf(float &a, float &b);
-void		kaf_swapd(double &a, double &b);
-void		kaf_extract_int_data(string sub_string, int &v, int &vt, int &vn);
-
 #endif

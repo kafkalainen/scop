@@ -49,4 +49,16 @@ namespace kaf_graphics
 			i++;
 		}
 	}
+
+	void	object::print_indices(void)
+	{
+		unsigned int	i;
+
+		i = 0;
+		while (i < indices.size())
+		{
+			cout << "idx: " << indices[i] << endl;
+			i++;
+		}
+	}
 }

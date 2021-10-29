@@ -119,3 +119,4 @@ g++ -o tester -Wall -Wextra -Werror -g kaf_object_main.cpp -I.. -L.. -lkaf
 kaf_object_test '1' 'empty' 'answers/invalid_obj_file'
 kaf_object_test '2' '../object_files/naanna.obj' 'answers/object_error'
 kaf_object_test '3' '../object_files/square.obj' 'answers/square'
+kaf_object_test '4' '../object_files/cube.obj' 'answers/cube'
