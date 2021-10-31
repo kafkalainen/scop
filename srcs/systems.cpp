@@ -1,13 +1,11 @@
-#include "../headers/nerd.h"
+#include "../headers/nerd.hpp"
 
 int	run_main_loop(GLFWwindow *window, t_main *main, t_camera *cam)
 {
-	glDisable(GL_CULL_FACE);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS
 		&& glfwWindowShouldClose(window) == 0)
 	{
+		toggle_transparency(&cam->inputs);
 		fps_timer(&cam->t);
 		// cout << cam->t.fps << endl;
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

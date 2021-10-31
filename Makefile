@@ -8,11 +8,12 @@ SRCS = \
 	fps_timer.cpp \
 	shader.cpp \
 	systems.cpp \
+	update_world.cpp \
 	utils.cpp \
 
 HEADERS = \
 	libkaf/libkaf.h \
-	headers/nerd.h \
+	headers/nerd.hpp \
 
 CC = g++
 

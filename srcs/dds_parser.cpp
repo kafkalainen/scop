@@ -1,4 +1,4 @@
-#include "../headers/nerd.h"
+#include "../headers/nerd.hpp"
 
 static unsigned int	compress_dxt_value(int four_cc)
 {

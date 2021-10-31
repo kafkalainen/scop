@@ -1,4 +1,4 @@
-#include "../headers/nerd.h"
+#include "../headers/nerd.hpp"
 
 void	initialize_camera_position(t_camera *cam)
 {

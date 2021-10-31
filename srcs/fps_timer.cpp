@@ -1,4 +1,4 @@
-#include "../headers/nerd.h"
+#include "../headers/nerd.hpp"
 
 void	initialize_time(t_time *t)
 {

@@ -1,5 +1,5 @@
 
-#include "../headers/nerd.h"
+#include "../headers/nerd.hpp"
 #include "../glew/include/GL/glew.h"
 #include "../glfw/include/GLFW/glfw3.h"
 

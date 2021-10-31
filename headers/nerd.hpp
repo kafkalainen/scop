@@ -20,6 +20,7 @@ const int SCREEN_FPS = 60;
 using namespace glm;
 #include "../libkaf/libkaf.h"
 using namespace kaf_graphics;
+#include "controls.hpp"
 #include "shader.hpp"
 #include "camera.hpp"
 
@@ -52,17 +53,18 @@ typedef struct	t_main
 	object					box;
 }				s_main;
 
+void	clean_up_gl(t_main *main);
 void	fps_timer(t_time *t);
 int		init_glfw();
 void	initialize_buffers(t_main *main);
-void	initialize_input(GLFWwindow *window, t_screen_xy middle);
+void	initialize_input(GLFWwindow *window, t_camera *cam);
 void	initialize_time(t_time *t);
 void	handle_key_input(GLFWwindow *window, t_camera *cam, float delta_time);
 void	handle_mouse_movement(GLFWwindow *window, t_camera *cam);
 int		create_window(GLFWwindow **window);
 GLuint	loadDDS(const char * imagepath);
 int		run_main_loop(GLFWwindow *window, t_main *main, t_camera *cam);
+void	toggle_transparency(t_inputs *input);
 void	update_world(GLFWwindow *window, t_camera *cam);
-void	clean_up_gl(t_main *main);
 
 #endif

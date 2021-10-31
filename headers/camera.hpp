@@ -27,6 +27,7 @@ typedef struct	t_camera
 	glm::vec3	right;
 	glm::vec3	up;
 	t_time		t;
+	t_inputs	inputs;
 	t_screen_xy	mouse;
 	t_screen_xy	middle;
 	double		last_time;

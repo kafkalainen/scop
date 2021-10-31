@@ -1,4 +1,4 @@
-#include "../headers/nerd.h"
+#include "../headers/nerd.hpp"
 using namespace glm;
 using namespace kaf_graphics;
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv)
 		glfwTerminate();
 		return (EXIT_FAILURE);
 	}
-	initialize_input(window, cam.middle);
+	initialize_input(window, &cam);
 	t_main	main;
 	glClearColor(0.0f, 0.0f, 0.2f, 0.0f);
 	glEnable(GL_DEPTH_TEST);
