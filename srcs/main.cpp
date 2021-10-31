@@ -5,14 +5,15 @@ using namespace kaf_graphics;
 int	main(int argc, char **argv)
 {
 	if (argc != 2)
+	{
 		cout << "ERROR: Incorrect number of arguments." << endl;
+		return (EXIT_FAILURE);
+	}
 	GLFWwindow *window;
 	t_camera	cam;
 
 	initialize_camera_position(&cam);
-	if (init_glfw())
-		return (EXIT_FAILURE);
-	if (create_window(&window))
+	if (init_glfw() || create_window(&window))
 		return (EXIT_FAILURE);
 	glfwMakeContextCurrent(window);
 	glewExperimental = true;
@@ -47,18 +48,7 @@ int	main(int argc, char **argv)
 		clean_up_gl(&main);
 		return (EXIT_FAILURE);
 	}
-	glGenBuffers(1, &main.vertex_buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, main.vertex_buffer);
-	glBufferData(GL_ARRAY_BUFFER, main.box.vertices.size() * sizeof(glm::vec3), &main.box.vertices[0], GL_STATIC_DRAW);
-	glGenBuffers(1, &main.texel_buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, main.texel_buffer);
-	glBufferData(GL_ARRAY_BUFFER, main.box.texels.size() * sizeof(glm::vec2), &main.box.texels[0], GL_STATIC_DRAW);
-	glGenBuffers(1, &main.normal_buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, main.normal_buffer);
-	glBufferData(GL_ARRAY_BUFFER, main.box.normals.size() * sizeof(glm::vec3), &main.box.normals[0], GL_STATIC_DRAW);
-	glGenBuffers(1, &main.element_buffer);
- 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, main.element_buffer);
- 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, main.box.indices.size() * sizeof(unsigned short), &main.box.indices[0], GL_STATIC_DRAW);
+	initialize_buffers(&main);
 	glUseProgram(main.program_id);
 	main.light_id = glGetUniformLocation(main.program_id, "LightPosition_worldspace");
 	run_main_loop(window, &main, &cam);

@@ -53,6 +53,7 @@ typedef struct	t_main
 }				s_main;
 
 int		init_glfw();
+void	initialize_buffers(t_main *main);
 void	initialize_input(GLFWwindow *window, t_screen_xy middle);
 void	handle_key_input(GLFWwindow *window, t_camera *cam, float delta_time);
 void	handle_mouse_movement(GLFWwindow *window, t_camera *cam);
