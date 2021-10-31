@@ -52,9 +52,11 @@ typedef struct	t_main
 	object					box;
 }				s_main;
 
+void	fps_timer(t_time *t);
 int		init_glfw();
 void	initialize_buffers(t_main *main);
 void	initialize_input(GLFWwindow *window, t_screen_xy middle);
+void	initialize_time(t_time *t);
 void	handle_key_input(GLFWwindow *window, t_camera *cam, float delta_time);
 void	handle_mouse_movement(GLFWwindow *window, t_camera *cam);
 int		create_window(GLFWwindow **window);

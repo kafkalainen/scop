@@ -1,5 +1,15 @@
-#ifndef CONTROLS_HPP
-#define CONTROLS_HPP
+#ifndef CAMERA_HPP
+#define CAMERA_HPP
+
+typedef unsigned int t_uint;
+
+typedef struct s_time
+{
+	double	frame_times[11];
+	double	frame_time_last;
+	t_uint	frame_count;
+	float	fps;
+}				t_time;
 
 typedef struct	t_screen_xy
 {
@@ -16,6 +26,7 @@ typedef struct	t_camera
 	glm::vec3	direction;
 	glm::vec3	right;
 	glm::vec3	up;
+	t_time		t;
 	t_screen_xy	mouse;
 	t_screen_xy	middle;
 	double		last_time;

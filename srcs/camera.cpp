@@ -11,7 +11,7 @@ void	initialize_camera_position(t_camera *cam)
 	cam->win_height = 1024;
 	cam->win_width = 768;
 	cam->middle = (t_screen_xy){512, 384};
-	cam->last_time = glfwGetTime();
+	initialize_time(&cam->t);
 	cam->model = mat4(1.0f);
 	compute_dir_right_up(cam);
 	update_view_matrix(cam);

@@ -12,9 +12,9 @@ int	main(int argc, char **argv)
 	GLFWwindow *window;
 	t_camera	cam;
 
-	initialize_camera_position(&cam);
 	if (init_glfw() || create_window(&window))
 		return (EXIT_FAILURE);
+	initialize_camera_position(&cam);
 	glfwMakeContextCurrent(window);
 	glewExperimental = true;
 	if (glewInit() != GLEW_OK)

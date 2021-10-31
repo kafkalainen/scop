@@ -5,6 +5,8 @@ int	run_main_loop(GLFWwindow *window, t_main *main, t_camera *cam)
 	while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS
 		&& glfwWindowShouldClose(window) == 0)
 	{
+		fps_timer(&cam->t);
+		cout << cam->t.fps << endl;
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glUseProgram(main->program_id);
 		update_world(window, cam);

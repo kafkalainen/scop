@@ -5,6 +5,7 @@ SRCS = \
 	camera.cpp \
 	controls.cpp \
 	dds_parser.cpp \
+	fps_timer.cpp \
 	shader.cpp \
 	systems.cpp \
 	utils.cpp \
