@@ -25,17 +25,18 @@ int	main(int argc, char **argv)
 	}
 	initialize_input(window, &cam);
 	t_main	main;
+	main.writer.initialize_typeface("assets/fonts/Crumbled-Pixels.ttf");
 	glClearColor(0.0f, 0.0f, 0.2f, 0.0f);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glEnable(GL_CULL_FACE);
 	glGenVertexArrays(1, &main.vertex_array_id);
 	glBindVertexArray(main.vertex_array_id);
-	main.program_id = LoadShaders( "srcs/shaders/StandardShading.vertexshader", "srcs/shaders/StandardShading.fragmentshader" );
+	main.program_id = LoadShaders("assets/shaders/StandardShading.vertexshader", "assets/shaders/StandardShading.fragmentshader");
 	main.matrix_id = glGetUniformLocation(main.program_id, "MVP");
 	main.view_matrix_id = glGetUniformLocation(main.program_id, "V");
 	main.model_matrix_id = glGetUniformLocation(main.program_id, "M");
-	main.texture = loadDDS("srcs/textures/suzanne_uvmap.DDS");
+	main.texture = loadDDS("assets/textures/suzanne_uvmap.DDS");
 	main.texture_id  = glGetUniformLocation(main.program_id, "myTextureSampler");
 	try
 	{

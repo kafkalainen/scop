@@ -8,14 +8,15 @@ void	initialize_camera_position(t_camera *cam)
 	cam->initial_fov = 45.0f;
 	cam->speed = 3.0f;
 	cam->mouse_speed = 0.005f;
-	cam->win_height = 1024;
-	cam->win_width = 768;
+	cam->win_width = 1024;
+	cam->win_height = 768;
 	cam->middle = (t_screen_xy){512, 384};
 	initialize_time(&cam->t);
 	cam->model = mat4(1.0f);
 	compute_dir_right_up(cam);
 	update_view_matrix(cam);
 	update_projection_matrix(cam);
+	cam->typewriting = glm::ortho(0.0f, 1024.0f, 0.0f, 768.0f);
 }
 
 void	compute_dir_right_up(t_camera *cam)

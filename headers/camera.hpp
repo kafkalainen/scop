@@ -19,6 +19,7 @@ typedef struct	t_screen_xy
 
 typedef struct	t_camera
 {
+	glm::mat4	typewriting;
 	glm::mat4	model;
 	glm::mat4	view_matrix;
 	glm::mat4	projection_matrix;

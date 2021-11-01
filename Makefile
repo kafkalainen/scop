@@ -10,6 +10,7 @@ SRCS = \
 	systems.cpp \
 	update_world.cpp \
 	utils.cpp \
+	typewriter.cpp \
 
 HEADERS = \
 	libkaf/libkaf.h \
@@ -32,14 +33,18 @@ GLFW_SRCS = $(ABS_DIR)/glfw-3.3.4
 GLFW_LIBS = $(ABS_DIR)/glfw
 GLEW_SRCS = $(ABS_DIR)/glew-1.13.0
 GLEW_LIBS = $(ABS_DIR)/glew
+FREETYPE_SRCS = $(ABS_DIR)/freetype-2.11.0
+FREETYPE_LIBS = $(ABS_DIR)/freetype
 CFLAGS_GLFW = $(shell export PKG_CONFIG_PATH=/home/kafkalainen/Documents/cplusplus/glfw/lib/pkgconfig && pkg-config --cflags glfw3)
 CFLAGS_GLEW = $(shell export PKG_CONFIG_PATH=/home/kafkalainen/Documents/cplusplus/glew/lib64/pkgconfig && pkg-config --cflags glew)
 CFLAGS_SDL = $(shell $(ABS_DIR)/SDL2/bin/sdl2-config --cflags)
-CFLAGS = -Wall -Wextra -Werror -g $(shell pkg-config --cflags gl) $(CFLAGS_SDL) $(CFLAGS_GLEW) $(CFLAGS_GLFW)
+CFLAGS_FREETYPE = $(shell export PKG_CONFIG_PATH=$(FREETYPE_LIBS) && $(FREETYPE_LIBS)/freetype-config --cflags)
+CFLAGS = -Wall -Wextra -Werror -g $(shell pkg-config --cflags gl) $(CFLAGS_SDL) $(CFLAGS_GLEW) $(CFLAGS_GLFW) $(CFLAGS_FREETYPE)
 LIBS_GLFW = $(shell export PKG_CONFIG_PATH=/home/kafkalainen/Documents/cplusplus/glfw/lib/pkgconfig && pkg-config --static --libs glfw3)
 LIBS_GLEW = $(shell export PKG_CONFIG_PATH=/home/kafkalainen/Documents/cplusplus/glew/lib64/pkgconfig && pkg-config --static --libs glew)
 LIBS_SDL = $(shell $(ABS_DIR)/SDL2/bin/sdl2-config --libs)
-LDFLAGS = -lkaf $(LIBS_GLEW) $(LIBS_GLFW) $(LIBS_SDL) "-Wl,-rpath,$(GLEW_LIBS)/lib64" "-Wl,-rpath,$(GLFW_LIBS)/lib"
+LIBS_FREETYPE = $(shell export PKG_CONFIG_PATH=$(FREETYPE_LIBS) && $(FREETYPE_LIBS)/freetype-config --static --libs)
+LDFLAGS = -lkaf $(LIBS_GLEW) $(LIBS_GLFW) $(LIBS_SDL) "-Wl,-rpath,$(GLEW_LIBS)/lib64" "-Wl,-rpath,$(GLFW_LIBS)/lib" $(LIBS_FREETYPE)
 SLASH = /
 MKDIR := mkdir -p
 RM = /bin/rm -rf
@@ -127,6 +132,16 @@ $(SDL_MIXER_LIBS):
 $(OPENGL):
 	sudo apt-get install libglu1-mesa-dev freeglut3-dev mesa-common-dev
 
+$(FREETYPE_LIBS):
+	@if [ ! -d $(FREETYPE_SRCS) ]; then \
+		tar -xzf freetype-2.11.0.tar.gz; \
+	fi
+	@if [ ! -d "$(FREETYPE_LIBS)" ] ; then \
+		mkdir -p $(FREETYPE_LIBS); \
+		cd $(FREETYPE_LIBS) && \
+		$(FREETYPE_SRCS)/configure --prefix=$(FREETYPE_LIBS) && \
+		make && make install; \
+	fi
 $O:
 	$(MKDIR) $@
 	$(MKDIR) $@/utils
@@ -139,7 +154,7 @@ $(OBJ): $O%.o: $S% $(HEADERS)
 $(LIBKAF):
 	make -C libkaf
 
-$(NAME): $(LIBKAF) $(SDL_LIBS) $(SDL_MIXER_LIBS) $(OPENGL) $(GLFW_LIBS) $(GLEW_LIBS) glm $(OBJ)
+$(NAME): $(LIBKAF) $(SDL_LIBS) $(SDL_MIXER_LIBS) $(OPENGL) $(GLFW_LIBS) $(GLEW_LIBS) $(FREETYPE_LIBS) glm $(OBJ)
 	$(CC) -o $@ $(INCLUDES) $(LIBS) $(CFLAGS) $(OBJ) $(LDFLAGS)
 	@echo $(GREEN)Compiled executable $(NAME).
 

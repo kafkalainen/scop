@@ -23,6 +23,8 @@ using namespace kaf_graphics;
 #include "controls.hpp"
 #include "shader.hpp"
 #include "camera.hpp"
+#include "typewriter.hpp"
+using namespace kaf_typewriter;
 
 typedef struct	t_DDS
 {
@@ -37,20 +39,21 @@ typedef struct	t_DDS
 
 typedef struct	t_main
 {
-	GLuint					vertex_array_id;
-	GLuint					program_id;
-	GLuint					matrix_id;
-	GLuint					view_matrix_id;
-	GLuint					model_matrix_id;
-	GLuint					texture;
-	GLuint					texture_id;
-	vector<unsigned int>	indices;
-	GLuint					vertex_buffer;
-	GLuint					texel_buffer;
-	GLuint					normal_buffer;
-	GLuint					element_buffer;
-	GLuint					light_id;
-	object					box;
+	GLuint						vertex_array_id;
+	GLuint						program_id;
+	GLuint						matrix_id;
+	GLuint						view_matrix_id;
+	GLuint						model_matrix_id;
+	GLuint						texture;
+	GLuint						texture_id;
+	vector<unsigned int>		indices;
+	GLuint						vertex_buffer;
+	GLuint						texel_buffer;
+	GLuint						normal_buffer;
+	GLuint						element_buffer;
+	GLuint						light_id;
+	object						box;
+	typewriter					writer;
 }				s_main;
 
 void	clean_up_gl(t_main *main);
