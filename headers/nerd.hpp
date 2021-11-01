@@ -25,6 +25,7 @@ using namespace kaf_graphics;
 #include "camera.hpp"
 #include "typewriter.hpp"
 using namespace kaf_typewriter;
+using namespace kaf_shader;
 
 typedef struct	t_DDS
 {
@@ -40,7 +41,6 @@ typedef struct	t_DDS
 typedef struct	t_main
 {
 	GLuint						vertex_array_id;
-	GLuint						program_id;
 	GLuint						matrix_id;
 	GLuint						view_matrix_id;
 	GLuint						model_matrix_id;
@@ -53,8 +53,9 @@ typedef struct	t_main
 	GLuint						element_buffer;
 	GLuint						light_id;
 	object						box;
-	typewriter					writer;
+	kaf_shader::shader			view_object;
 }				s_main;
+// typewriter					writer;
 
 void	clean_up_gl(t_main *main);
 void	fps_timer(t_time *t);

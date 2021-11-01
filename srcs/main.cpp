@@ -25,19 +25,19 @@ int	main(int argc, char **argv)
 	}
 	initialize_input(window, &cam);
 	t_main	main;
-	main.writer.initialize_typeface("assets/fonts/Crumbled-Pixels.ttf");
+	// main.writer.initialize_typeface("assets/fonts/Crumbled-Pixels.ttf");
 	glClearColor(0.0f, 0.0f, 0.2f, 0.0f);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glEnable(GL_CULL_FACE);
 	glGenVertexArrays(1, &main.vertex_array_id);
 	glBindVertexArray(main.vertex_array_id);
-	main.program_id = LoadShaders("assets/shaders/StandardShading.vertexshader", "assets/shaders/StandardShading.fragmentshader");
-	main.matrix_id = glGetUniformLocation(main.program_id, "MVP");
-	main.view_matrix_id = glGetUniformLocation(main.program_id, "V");
-	main.model_matrix_id = glGetUniformLocation(main.program_id, "M");
+	main.view_object.load_from_file("assets/shaders/StandardShading.vertexshader", "assets/shaders/StandardShading.fragmentshader");
+	main.matrix_id = glGetUniformLocation(main.view_object.program_id, "MVP");
+	main.view_matrix_id = glGetUniformLocation(main.view_object.program_id, "V");
+	main.model_matrix_id = glGetUniformLocation(main.view_object.program_id, "M");
 	main.texture = loadDDS("assets/textures/suzanne_uvmap.DDS");
-	main.texture_id  = glGetUniformLocation(main.program_id, "myTextureSampler");
+	main.texture_id  = glGetUniformLocation(main.view_object.program_id, "myTextureSampler");
 	try
 	{
 		main.box.load_from_file(argv[1]);
@@ -50,8 +50,8 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	}
 	initialize_buffers(&main);
-	glUseProgram(main.program_id);
-	main.light_id = glGetUniformLocation(main.program_id, "LightPosition_worldspace");
+	main.view_object.use();
+	main.light_id = glGetUniformLocation(main.view_object.program_id, "LightPosition_worldspace");
 	run_main_loop(window, &main, &cam);
 	clean_up_gl(&main);
 	glfwTerminate();

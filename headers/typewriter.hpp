@@ -1,5 +1,8 @@
 #include <iostream>
 #include <map>
+#include <glm/glm.hpp>
+#include "../glew/include/GL/glew.h"
+#include "../glfw/include/GLFW/glfw3.h"
 #include <bits/stdc++.h>
 #include "../freetype/include/freetype2/ft2build.h"
 #include FT_FREETYPE_H
@@ -9,6 +12,14 @@ namespace kaf_typewriter
 {
 	class typewriter
 	{
+		typedef struct s_text_mod
+		{
+			float		x;
+			float		y;
+			float		scale;
+			glm::vec3	color;
+		}			t_text_mod;
+
 		typedef struct s_character
 		{
 			unsigned int	texture_ID;
@@ -29,7 +40,10 @@ namespace kaf_typewriter
 			t_typewriter	writer;
 			void			load_characters(void);
 		public:
+			GLuint			typewriter_buffer;
+			GLuint			typewriter_VAO;
 			typewriter(void);
 			int				initialize_typeface(const char *path);
+			void			render_text(kaf_shader::shader &s, std::string text, t_text_mod mod);
 	};
 }

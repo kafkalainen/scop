@@ -44,7 +44,6 @@ void	clean_up_gl(t_main *main)
 	glDeleteBuffers(1, &main->texel_buffer);
 	glDeleteBuffers(1, &main->normal_buffer);
 	glDeleteBuffers(1, &main->element_buffer);
-	glDeleteProgram(main->program_id);
 	glDeleteTextures(1, &main->texture);
 	glDeleteVertexArrays(1, &main->vertex_array_id);
 }
