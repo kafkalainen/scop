@@ -9,6 +9,7 @@ void	initialize_input(GLFWwindow *window, t_camera *cam)
 	glfwSetCursorPos(window, cam->middle.x, cam->middle.y);
 	cam->inputs.transparency = false;
 	cam->inputs.toggle = false;
+	cam->inputs.currently_active = false;
 }
 
 void	handle_mouse_movement(GLFWwindow *window, t_camera *cam)
@@ -29,15 +30,12 @@ void	handle_key_input(GLFWwindow *window, t_camera *cam, float delta_time)
 		cam->position += cam->right * delta_time * cam->speed;
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 		cam->position -= cam->right * delta_time * cam->speed;
-	if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS && !cam->inputs.toggle)
+	cam->inputs.currently_active = glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS;
+	if (!cam->inputs.toggle && cam->inputs.currently_active)
 	{
-		cout << "key pressed" << endl;
-		if (cam->inputs.transparency)
-			cam->inputs.transparency = false;
-		else
-			cam->inputs.transparency = true;
-		cam->inputs.toggle = true;
+		cam->inputs.transparency = !cam->inputs.transparency;
 	}
+	cam->inputs.toggle = cam->inputs.currently_active;
 }
 
 void	clean_up_gl(t_main *main)

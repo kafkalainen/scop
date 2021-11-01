@@ -7,13 +7,11 @@ void	toggle_transparency(t_inputs *input)
 		glDisable(GL_CULL_FACE);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		input->toggle = false;
 	}
 	else if (!input->transparency && input->toggle)
 	{
 		glEnable(GL_CULL_FACE);
 		glDisable(GL_BLEND);
-		input->toggle = false;
 	}
 }
 
