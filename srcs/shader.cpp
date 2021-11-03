@@ -75,6 +75,11 @@ namespace kaf_shader
 		glUniform1f(glGetUniformLocation(program_id, name.c_str()), value);
 	}
 
+	void shader::setVec3(const std::string &name, glm::vec3 v)
+	{
+		glUniform3f(glGetUniformLocation(program_id, name.c_str()), v.x, v.y, v.z);
+	}
+
 	void shader::check_compiling_errors(GLuint type, const char *msg)
 	{
 		GLint	success;

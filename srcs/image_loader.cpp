@@ -3,7 +3,7 @@
 #include "../stb/stb_image.h"
 
 
-GLuint	load_image(const char *path)
+GLuint	load_image(const char *path, bool alpha)
 {
 	t_bitmap	img;
 	GLuint		texture;
@@ -21,8 +21,12 @@ GLuint	load_image(const char *path)
 	}
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, img.width,
-		img.height, 0, GL_RGB, GL_UNSIGNED_BYTE, img.data);
+	if (alpha)
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img.width,
+			img.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, img.data);
+	else
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, img.width,
+			img.height, 0, GL_RGB, GL_UNSIGNED_BYTE, img.data);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(img.data);
 	return (texture);

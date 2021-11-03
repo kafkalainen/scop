@@ -14,11 +14,10 @@ int	run_main_loop(GLFWwindow *window, t_main *main, t_camera *cam)
 		glUniformMatrix4fv(main->matrix_id, 1, GL_FALSE, &MVP[0][0]);
 		glUniformMatrix4fv(main->model_matrix_id, 1, GL_FALSE, &cam->model[0][0]);
 		glUniformMatrix4fv(main->view_matrix_id, 1, GL_FALSE, &cam->view_matrix[0][0]);
-		glm::vec3 lightPos = glm::vec3(4,4,4);
-		glUniform3f(main->light_id, lightPos.x, lightPos.y, lightPos.z);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, main->texture);
-		glUniform1i(main->texture_id, 0);
+		glActiveTexture(GL_TEXTURE0); // Activate texture unit
+		glBindTexture(GL_TEXTURE_2D, main->texture1); //Bind texture to texture unit
+		glActiveTexture(GL_TEXTURE1); // Activate texture unit
+		glBindTexture(GL_TEXTURE_2D, main->texture2); //Bind texture to texture unit
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, main->element_buffer);
 		glEnableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, main->vertex_buffer);

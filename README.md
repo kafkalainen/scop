@@ -70,6 +70,8 @@ When the vertex data has been stored in an array, we need to tell OpenGL how it 
 keyword | explanation
 --------|--------
 uniform | global, usable in any shader stage
+sampler | allows to use specific texture.
+glUniform1i | makes sure each uniform sampler corresponds to the proper texture unit.
 
 ## Links
 [Learn OpenGL](https://learnopengl.com/)

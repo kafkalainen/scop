@@ -34,11 +34,11 @@ int	main(int argc, char **argv)
 	main.mod.scale = 1.0f;
 	main.mod.color = glm::vec3(1.0f, 0.0f, 0.0f);
 	main.view_object.load_from_file(
-		"assets/shaders/StandardShading.vertexshader",
-		"assets/shaders/StandardShading.fragmentshader");
+		"assets/shaders/StandardShading.vs",
+		"assets/shaders/StandardShading.fs");
 	main.text.load_from_file(
-		"assets/shaders/Typewriter.vertexshader",
-		"assets/shaders/Typewriter.fragmentshader");
+		"assets/shaders/Typewriter.vs",
+		"assets/shaders/Typewriter.fs");
 	main.text.use();
 	glUniformMatrix4fv(glGetUniformLocation(main.text.program_id, "typewriting"), 1, GL_FALSE, glm::value_ptr(cam.typewriting));
 	main.writer.initialize_typeface(
@@ -46,9 +46,8 @@ int	main(int argc, char **argv)
 	main.matrix_id = glGetUniformLocation(main.view_object.program_id, "MVP");
 	main.view_matrix_id = glGetUniformLocation(main.view_object.program_id, "V");
 	main.model_matrix_id = glGetUniformLocation(main.view_object.program_id, "M");
-	// main.texture = loadDDS("assets/textures/suzanne_uvmap.DDS");
-	main.texture = load_image("assets/textures/container.jpg");
-	main.texture_id  = glGetUniformLocation(main.view_object.program_id, "myTextureSampler");
+	main.texture1 = load_image("assets/textures/container.jpg", false);
+	main.texture2 = load_image("assets/textures/awesomeface.png", true);
 	try
 	{
 		main.box.load_from_file(argv[1]);
@@ -62,7 +61,14 @@ int	main(int argc, char **argv)
 	}
 	initialize_buffers(&main);
 	main.view_object.use();
-	main.light_id = glGetUniformLocation(main.view_object.program_id, "LightPosition_worldspace");
+	main.view_object.setInt("texture1", 0);
+	main.view_object.setInt("texture2", 1);
+	glm::vec3 light_pos = glm::vec3(4,4,4);
+	glm::vec3 light_colour = glm::vec3(1,1,1);
+	float light_power = 50.0f;
+	main.view_object.setVec3("LightPosition_worldspace", light_pos);
+	main.view_object.setVec3("LightColor", light_colour);
+	main.view_object.setFloat("LightPower", light_power);
 	run_main_loop(window, &main, &cam);
 	clean_up_gl(&main);
 	glfwTerminate();

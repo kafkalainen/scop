@@ -48,7 +48,8 @@ typedef struct	t_main
 	GLuint						matrix_id;
 	GLuint						view_matrix_id;
 	GLuint						model_matrix_id;
-	GLuint						texture;
+	GLuint						texture1;
+	GLuint						texture2;
 	GLuint						texture_id;
 	vector<unsigned int>		indices;
 	GLuint						vertex_buffer;
@@ -74,7 +75,7 @@ void	initialize_time(t_time *t);
 void	handle_key_input(GLFWwindow *window, t_camera *cam, float delta_time);
 void	handle_mouse_movement(GLFWwindow *window, t_camera *cam);
 GLuint	loadDDS(const char * imagepath);
-GLuint	load_image(const char *path);
+GLuint	load_image(const char *path, bool alpha);
 int		run_main_loop(GLFWwindow *window, t_main *main, t_camera *cam);
 void	toggle_transparency(t_inputs *input);
 void	toggle_wireframe(t_inputs *input);
