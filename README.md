@@ -13,7 +13,7 @@ Graphics nerd is my excercise project to learn C++ and OpenGL Graphics library.
 - Conversion from spherical to cartesian coordinates
 - Double buffering
 - Vertex Buffer Objects
-- HLSL Shader language
+- GLSL Shader language
 
 ## Key graphics concepts
 
@@ -42,3 +42,7 @@ We first create an object and store a reference to it as an id (the real object'
 The first part of the pipeline is the vertex shader that takes as input a single vertex. The main purpose of the vertex shader is to transform 3D coordinates into different 3D coordinates (more on that later) and the vertex shader allows us to do some basic processing on the vertex attributes. It transforms coordinates to normalized device coordinates.
 
 The main purpose of the fragment shader is to calculate the final color of a pixel and this is usually the stage where all the advanced OpenGL effects occur.
+
+## Links
+[Learn OpenGL](https://learnopengl.com/)
+[OpenGL tutorial](http://www.opengl-tutorial.org/)
