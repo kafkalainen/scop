@@ -1,15 +1,19 @@
-## Compiling
-
-g++ -Wall -Wextra -Werror ascii.cpp -o a.out
+# Graphics-Nerd
+Graphics nerd is my excercise project to learn C++ and OpenGL Graphics library.
 
 ## Why I write C++ like this
 
-- I find easier to read underscore hello_world vs. helloWorld. Pros and cons can be read from here  [Link](https://whatheco.de/2011/02/10/camelcase-vs-underscores-scientific-showdown/)
+- I find easier to read underscore hello_world vs. helloWorld. Pros and cons can be read from here  [Link](https://whatheco.de/2011/02/10/camelcase-vs-underscores-scientific-showdown/
 
 ## Learned through the project
 
+- C++ OOP
+- Object files parsing (*.obj)
+- Freetype parsing
 - Conversion from spherical to cartesian coordinates
 - Double buffering
+- Vertex Buffer Objects
+- HLSL Shader language
 
 ## Key graphics concepts
 
@@ -34,3 +38,7 @@ OpenGL objects:
 
 We first create an object and store a reference to it as an id (the real object's data is stored behind the scenes). Then we bind the object (using its id) to the target location of the context (the location of the example window object target is defined as GL_WINDOW_TARGET). Next we set the window options and finally we un-bind the object by setting the current object id of the window target to 0.
 [From OpenGL tutorial](https://learnopengl.com/Getting-started/OpenGL)
+
+The first part of the pipeline is the vertex shader that takes as input a single vertex. The main purpose of the vertex shader is to transform 3D coordinates into different 3D coordinates (more on that later) and the vertex shader allows us to do some basic processing on the vertex attributes. It transforms coordinates to normalized device coordinates.
+
+The main purpose of the fragment shader is to calculate the final color of a pixel and this is usually the stage where all the advanced OpenGL effects occur.
