@@ -6,9 +6,9 @@ int	run_main_loop(GLFWwindow *window, t_main *main, t_camera *cam)
 		&& glfwWindowShouldClose(window) == 0)
 	{
 		toggle_transparency(&cam->inputs);
+		toggle_wireframe(&cam->inputs);
 		fps_timer(&cam->t);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		main->view_object.use();
 		update_world(window, cam);
 		mat4 MVP = cam->projection_matrix * cam->view_matrix * cam->model;
 		glUniformMatrix4fv(main->matrix_id, 1, GL_FALSE, &MVP[0][0]);
@@ -29,6 +29,7 @@ int	run_main_loop(GLFWwindow *window, t_main *main, t_camera *cam)
 		glEnableVertexAttribArray(2);
 		glBindBuffer(GL_ARRAY_BUFFER, main->normal_buffer);
 		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+		main->view_object.use();
 		glDrawElements(GL_TRIANGLES, main->box.indices.size(), GL_UNSIGNED_SHORT, (void*)0);
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);

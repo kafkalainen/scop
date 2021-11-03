@@ -26,7 +26,7 @@ static size_t		calculate_bufsize(unsigned int mip_map_count, unsigned int	linear
 static GLuint		create_texture(t_DDS *properties, vector<unsigned char> &buffer)
 {
 	GLuint textureID;
-    glGenTextures(1, &textureID);
+	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 	unsigned int	block_size = (properties->format == GL_COMPRESSED_RGBA_S3TC_DXT1_EXT) ? 8 : 16;
 	unsigned int	offset = 0;

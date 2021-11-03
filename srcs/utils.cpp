@@ -34,18 +34,25 @@ int	create_window(GLFWwindow **window)
 	return (EXIT_SUCCESS);
 }
 
+/*
+**	Initialize buffers creates Vertex Array Objects by using OpenGL glGenBuffers,
+**	then binds those buffers and copies those from our Vertex Buffer Objects.
+**	Vertex attribute pointers are set in the main loop. At this point, I also create
+**	Element Buffer Object, since object file has been indexed, when class loads the
+**	desired object file to the program, and index_VBO has been called.
+*/
 void	initialize_buffers(t_main *main)
 {
 	glGenBuffers(1, &main->vertex_buffer);
+	glGenBuffers(1, &main->texel_buffer);
+	glGenBuffers(1, &main->normal_buffer);
+	glGenBuffers(1, &main->element_buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, main->vertex_buffer);
 	glBufferData(GL_ARRAY_BUFFER, main->box.vertices.size() * sizeof(glm::vec3), &main->box.vertices[0], GL_STATIC_DRAW);
-	glGenBuffers(1, &main->texel_buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, main->texel_buffer);
 	glBufferData(GL_ARRAY_BUFFER, main->box.texels.size() * sizeof(glm::vec2), &main->box.texels[0], GL_STATIC_DRAW);
-	glGenBuffers(1, &main->normal_buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, main->normal_buffer);
 	glBufferData(GL_ARRAY_BUFFER, main->box.normals.size() * sizeof(glm::vec3), &main->box.normals[0], GL_STATIC_DRAW);
-	glGenBuffers(1, &main->element_buffer);
  	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, main->element_buffer);
  	glBufferData(GL_ELEMENT_ARRAY_BUFFER, main->box.indices.size() * sizeof(unsigned short), &main->box.indices[0], GL_STATIC_DRAW);
 }

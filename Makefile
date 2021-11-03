@@ -6,6 +6,7 @@ SRCS = \
 	controls.cpp \
 	dds_parser.cpp \
 	fps_timer.cpp \
+	image_loader.cpp \
 	shader.cpp \
 	systems.cpp \
 	update_world.cpp \
@@ -45,6 +46,7 @@ CFLAGS_FREETYPE = $(shell export PKG_CONFIG_PATH=$(FREETYPE_LIBS) && $(FREETYPE_
 CFLAGS = -Wall -Wextra -Werror -g $(shell pkg-config --cflags gl) $(CFLAGS_SDL) $(CFLAGS_GLFW) $(CFLAGS_FREETYPE)
 LIBS_GLFW = $(shell export PKG_CONFIG_PATH=/home/kafkalainen/Documents/cplusplus/glfw/lib/pkgconfig && pkg-config --static --libs glfw3)
 LIBS_SDL = $(shell $(ABS_DIR)/SDL2/bin/sdl2-config --libs)
+LIBS_STB = $(ABS_DIR)/stb
 LIBS_FREETYPE = $(shell export PKG_CONFIG_PATH=$(FREETYPE_LIBS) && $(FREETYPE_LIBS)/freetype-config --static --libs)
 LDFLAGS = -lkaf $(LIBS_GLFW) $(LIBS_SDL) "-Wl,-rpath,$(GLFW_LIBS)/lib" $(LIBS_FREETYPE)
 SLASH = /
@@ -143,6 +145,9 @@ $(FREETYPE_LIBS):
 		$(FREETYPE_SRCS)/configure --prefix=$(FREETYPE_LIBS) && \
 		make && make install; \
 	fi
+
+$(LIBS_STB):
+	git clone git@github.com:nothings/stb.git
 $O:
 	$(MKDIR) $@
 	$(MKDIR) $@/utils
@@ -155,7 +160,7 @@ $(OBJ): $O%.o: $S% $(HEADERS)
 $(LIBKAF):
 	make -C libkaf
 
-$(NAME): $(LIBKAF) $(SDL_LIBS) $(SDL_MIXER_LIBS) $(OPENGL) $(GLFW_LIBS) $(FREETYPE_LIBS) glm $(OBJ)
+$(NAME): $(LIBKAF) $(SDL_LIBS) $(SDL_MIXER_LIBS) $(OPENGL) $(GLFW_LIBS) $(FREETYPE_LIBS) $(LIBS_STB) glm $(OBJ)
 	$(CC) -o $@ $(INCLUDES) $(LIBS) $(CFLAGS) $(OBJ) $(LDFLAGS)
 	@echo $(GREEN)Compiled executable $(NAME).
 

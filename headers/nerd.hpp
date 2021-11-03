@@ -34,6 +34,14 @@ typedef struct	t_DDS
 	unsigned int	format;
 }				s_DDS;
 
+typedef struct	t_bitmap
+{
+	int				width;
+	int				height;
+	int				channel_count;
+	unsigned char	*data;
+}				s_bitmap;
+
 typedef struct	t_main
 {
 	GLuint						vertex_array_id;
@@ -56,6 +64,7 @@ typedef struct	t_main
 }				s_main;
 
 void	clean_up_gl(t_main *main);
+int		create_window(GLFWwindow **window);
 void	fps_timer(t_time *t);
 void 	framebuffer_size_callback(GLFWwindow* window, int width, int height);
 int		init_glfw();
@@ -64,10 +73,11 @@ void	initialize_input(GLFWwindow **window, t_camera *cam);
 void	initialize_time(t_time *t);
 void	handle_key_input(GLFWwindow *window, t_camera *cam, float delta_time);
 void	handle_mouse_movement(GLFWwindow *window, t_camera *cam);
-int		create_window(GLFWwindow **window);
 GLuint	loadDDS(const char * imagepath);
+GLuint	load_image(const char *path);
 int		run_main_loop(GLFWwindow *window, t_main *main, t_camera *cam);
 void	toggle_transparency(t_inputs *input);
+void	toggle_wireframe(t_inputs *input);
 void	update_world(GLFWwindow *window, t_camera *cam);
 
 #endif

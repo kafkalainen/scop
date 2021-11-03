@@ -4,8 +4,11 @@
 typedef struct s_inputs
 {
 	bool	transparency;
-	bool	toggle;
-	bool	currently_active;
+	bool	wireframe;
+	bool	wireframe_toggle;
+	bool	transparency_toggle;
+	bool	t_currently_active;
+	bool	w_currently_active;
 }				t_inputs;
 
 #endif

@@ -46,7 +46,8 @@ int	main(int argc, char **argv)
 	main.matrix_id = glGetUniformLocation(main.view_object.program_id, "MVP");
 	main.view_matrix_id = glGetUniformLocation(main.view_object.program_id, "V");
 	main.model_matrix_id = glGetUniformLocation(main.view_object.program_id, "M");
-	main.texture = loadDDS("assets/textures/suzanne_uvmap.DDS");
+	// main.texture = loadDDS("assets/textures/suzanne_uvmap.DDS");
+	main.texture = load_image("assets/textures/container.jpg");
 	main.texture_id  = glGetUniformLocation(main.view_object.program_id, "myTextureSampler");
 	try
 	{

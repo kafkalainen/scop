@@ -8,8 +8,11 @@ void	initialize_input(GLFWwindow **window, t_camera *cam)
 	glfwPollEvents();
 	glfwSetCursorPos(*window, cam->middle.x, cam->middle.y);
 	cam->inputs.transparency = false;
-	cam->inputs.toggle = false;
-	cam->inputs.currently_active = false;
+	cam->inputs.wireframe = false;
+	cam->inputs.transparency_toggle = false;
+	cam->inputs.wireframe_toggle = false;
+	cam->inputs.w_currently_active = false;
+	cam->inputs.t_currently_active = false;
 }
 
 void	handle_mouse_movement(GLFWwindow *window, t_camera *cam)
@@ -30,12 +33,14 @@ void	handle_key_input(GLFWwindow *window, t_camera *cam, float delta_time)
 		cam->position += cam->right * delta_time * cam->speed;
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 		cam->position -= cam->right * delta_time * cam->speed;
-	cam->inputs.currently_active = glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS;
-	if (!cam->inputs.toggle && cam->inputs.currently_active)
-	{
+	cam->inputs.t_currently_active = glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS;
+	cam->inputs.w_currently_active = glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS;
+	if (!cam->inputs.transparency_toggle && cam->inputs.t_currently_active)
 		cam->inputs.transparency = !cam->inputs.transparency;
-	}
-	cam->inputs.toggle = cam->inputs.currently_active;
+	if (!cam->inputs.wireframe_toggle && cam->inputs.w_currently_active)
+		cam->inputs.wireframe = !cam->inputs.wireframe;
+	cam->inputs.transparency_toggle = cam->inputs.t_currently_active;
+	cam->inputs.wireframe_toggle = cam->inputs.w_currently_active;
 }
 
 void	clean_up_gl(t_main *main)
