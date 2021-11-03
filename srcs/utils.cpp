@@ -1,31 +1,36 @@
 
 #include "../headers/nerd.hpp"
-#include "../glew/include/GL/glew.h"
-#include "../glfw/include/GLFW/glfw3.h"
 
 int	init_glfw()
 {
-	if( !glfwInit() )
+	if (!glfwInit())
 	{
-		cout << "Failed to initialize GLFW" << endl;
+		std::cout << "Failed to initialize GLFW" << std::endl;
 		return (EXIT_FAILURE);
 	}
-	glfwWindowHint(GLFW_SAMPLES, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
+	// glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); For MacOs compability
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	return (EXIT_SUCCESS);
 }
 
+void framebuffer_size_callback(GLFWwindow *window, int width, int height)
+{
+	(void)window;
+	glViewport(0, 0, width, height);
+}
+
 int	create_window(GLFWwindow **window)
 {
-	*window = glfwCreateWindow( 1024, 768, "Particles", NULL, NULL);
-	if( *window == NULL ){
-		cout << "Failed to open GLFW window." << endl;
+	*window = glfwCreateWindow(WIDTH, HEIGHT, "Particles", NULL, NULL);
+	if (*window == NULL){
+		std::cout << "Failed to open GLFW window." << std::endl;
 		glfwTerminate();
 		return (EXIT_FAILURE);
 	}
+	glfwMakeContextCurrent(*window);
+	glfwSetFramebufferSizeCallback(*window, framebuffer_size_callback);
 	return (EXIT_SUCCESS);
 }
 

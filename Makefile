@@ -11,15 +11,20 @@ SRCS = \
 	update_world.cpp \
 	utils.cpp \
 	typewriter.cpp \
+	glad.c \
 
 HEADERS = \
 	libkaf/libkaf.h \
+	headers/camera.hpp \
+	headers/controls.hpp \
 	headers/nerd.hpp \
+	headers/shader.hpp \
+	headers/typewriter.hpp \
 
 CC = g++
 
 ABS_DIR = $(shell pwd)
-INCLUDES = -Ilibkaf -Iglm -Iglew/include/GL -Iglfw/GLFW/include
+INCLUDES = -Ilibkaf -Iglm -Iglad/include/ -Iglfw/GLFW/include
 LIBS = -Llibkaf/
 SDL_SRCS = $(ABS_DIR)/SDL2-2.0.14/
 SDL_LIBS = $(ABS_DIR)/SDL2/
@@ -31,20 +36,17 @@ CORES = $(shell echo 2+$(shell cat /proc/cpuinfo | grep processor | wc -l) | bc)
 GLM = $(shell dpkg -l | grep libglm-dev)
 GLFW_SRCS = $(ABS_DIR)/glfw-3.3.4
 GLFW_LIBS = $(ABS_DIR)/glfw
-GLEW_SRCS = $(ABS_DIR)/glew-1.13.0
-GLEW_LIBS = $(ABS_DIR)/glew
+GLAD = $(ABS_DIR)/glad
 FREETYPE_SRCS = $(ABS_DIR)/freetype-2.11.0
 FREETYPE_LIBS = $(ABS_DIR)/freetype
 CFLAGS_GLFW = $(shell export PKG_CONFIG_PATH=/home/kafkalainen/Documents/cplusplus/glfw/lib/pkgconfig && pkg-config --cflags glfw3)
-CFLAGS_GLEW = $(shell export PKG_CONFIG_PATH=/home/kafkalainen/Documents/cplusplus/glew/lib64/pkgconfig && pkg-config --cflags glew)
 CFLAGS_SDL = $(shell $(ABS_DIR)/SDL2/bin/sdl2-config --cflags)
 CFLAGS_FREETYPE = $(shell export PKG_CONFIG_PATH=$(FREETYPE_LIBS) && $(FREETYPE_LIBS)/freetype-config --cflags)
-CFLAGS = -Wall -Wextra -Werror -g $(shell pkg-config --cflags gl) $(CFLAGS_SDL) $(CFLAGS_GLEW) $(CFLAGS_GLFW) $(CFLAGS_FREETYPE)
+CFLAGS = -Wall -Wextra -Werror -g $(shell pkg-config --cflags gl) $(CFLAGS_SDL) $(CFLAGS_GLFW) $(CFLAGS_FREETYPE)
 LIBS_GLFW = $(shell export PKG_CONFIG_PATH=/home/kafkalainen/Documents/cplusplus/glfw/lib/pkgconfig && pkg-config --static --libs glfw3)
-LIBS_GLEW = $(shell export PKG_CONFIG_PATH=/home/kafkalainen/Documents/cplusplus/glew/lib64/pkgconfig && pkg-config --static --libs glew)
 LIBS_SDL = $(shell $(ABS_DIR)/SDL2/bin/sdl2-config --libs)
 LIBS_FREETYPE = $(shell export PKG_CONFIG_PATH=$(FREETYPE_LIBS) && $(FREETYPE_LIBS)/freetype-config --static --libs)
-LDFLAGS = -lkaf $(LIBS_GLEW) $(LIBS_GLFW) $(LIBS_SDL) "-Wl,-rpath,$(GLEW_LIBS)/lib64" "-Wl,-rpath,$(GLFW_LIBS)/lib" $(LIBS_FREETYPE)
+LDFLAGS = -lkaf $(LIBS_GLFW) $(LIBS_SDL) "-Wl,-rpath,$(GLFW_LIBS)/lib" $(LIBS_FREETYPE)
 SLASH = /
 MKDIR := mkdir -p
 RM = /bin/rm -rf
@@ -77,14 +79,6 @@ $(GLFW_LIBS):
 		cd $(GLFW_LIBS) && \
 		make install; \
 	fi
-
-$(GLEW_LIBS):
-	@if [ ! -d $(GLEW_SRCS) ]; then \
-		tar -xzf glew-1.13.0.tgz; \
-	fi
-	cd $(GLEW_SRCS) && \
-	make GLEW_DEST=$(GLEW_LIBS) && \
-	make install GLEW_DEST=$(GLEW_LIBS)
 
 glm:
 ifndef GLM
@@ -132,6 +126,13 @@ $(SDL_MIXER_LIBS):
 $(OPENGL):
 	sudo apt-get install libglu1-mesa-dev freeglut3-dev mesa-common-dev
 
+$(GLAD):
+	@if [ ! -d $(GLAD) ]; then \
+		mkdir -p glad && \
+		unzip glad.zip -d glad && \
+		mv glad/src/glad.c srcs/glad.c;
+	fi
+
 $(FREETYPE_LIBS):
 	@if [ ! -d $(FREETYPE_SRCS) ]; then \
 		tar -xzf freetype-2.11.0.tar.gz; \
@@ -154,7 +155,7 @@ $(OBJ): $O%.o: $S% $(HEADERS)
 $(LIBKAF):
 	make -C libkaf
 
-$(NAME): $(LIBKAF) $(SDL_LIBS) $(SDL_MIXER_LIBS) $(OPENGL) $(GLFW_LIBS) $(GLEW_LIBS) $(FREETYPE_LIBS) glm $(OBJ)
+$(NAME): $(LIBKAF) $(SDL_LIBS) $(SDL_MIXER_LIBS) $(OPENGL) $(GLFW_LIBS) $(FREETYPE_LIBS) glm $(OBJ)
 	$(CC) -o $@ $(INCLUDES) $(LIBS) $(CFLAGS) $(OBJ) $(LDFLAGS)
 	@echo $(GREEN)Compiled executable $(NAME).
 

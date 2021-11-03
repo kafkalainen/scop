@@ -1,12 +1,12 @@
 #include "../headers/nerd.hpp"
 using namespace glm;
 
-void	initialize_input(GLFWwindow *window, t_camera *cam)
+void	initialize_input(GLFWwindow **window, t_camera *cam)
 {
-	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(*window, GLFW_STICKY_KEYS, GL_TRUE);
+	glfwSetInputMode(*window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwPollEvents();
-	glfwSetCursorPos(window, cam->middle.x, cam->middle.y);
+	glfwSetCursorPos(*window, cam->middle.x, cam->middle.y);
 	cam->inputs.transparency = false;
 	cam->inputs.toggle = false;
 	cam->inputs.currently_active = false;

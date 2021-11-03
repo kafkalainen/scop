@@ -3,20 +3,16 @@
 # define FOURCC_DXT1 0x31545844
 # define FOURCC_DXT3 0x33545844
 # define FOURCC_DXT5 0x35545844
+# define WIDTH 1078
+# define HEIGHT 768
 
-# include <iostream>
 using namespace std;
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
-const int SCREEN_FPS = 60;
-#include "../glew/include/GL/glew.h"
-
-// Include GLFW
+#include "../glad/include/glad/glad.h"
 #include "../glfw/include/GLFW/glfw3.h"
-
-// Include GLM
+#include <iostream>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 using namespace glm;
 #include "../libkaf/libkaf.h"
 using namespace kaf_graphics;
@@ -54,14 +50,17 @@ typedef struct	t_main
 	GLuint						light_id;
 	object						box;
 	kaf_shader::shader			view_object;
+	kaf_shader::shader			text;
+	kaf_typewriter::typewriter	writer;
+	t_text_mod					mod;
 }				s_main;
-// typewriter					writer;
 
 void	clean_up_gl(t_main *main);
 void	fps_timer(t_time *t);
+void 	framebuffer_size_callback(GLFWwindow* window, int width, int height);
 int		init_glfw();
 void	initialize_buffers(t_main *main);
-void	initialize_input(GLFWwindow *window, t_camera *cam);
+void	initialize_input(GLFWwindow **window, t_camera *cam);
 void	initialize_time(t_time *t);
 void	handle_key_input(GLFWwindow *window, t_camera *cam, float delta_time);
 void	handle_mouse_movement(GLFWwindow *window, t_camera *cam);

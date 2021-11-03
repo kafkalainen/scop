@@ -7,6 +7,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 	{
 		cout << "ERROR: Incorrect number of arguments." << endl;
+		cout << argv[0] << endl;
 		return (EXIT_FAILURE);
 	}
 	GLFWwindow *window;
@@ -15,24 +16,33 @@ int	main(int argc, char **argv)
 	if (init_glfw() || create_window(&window))
 		return (EXIT_FAILURE);
 	initialize_camera_position(&cam);
-	glfwMakeContextCurrent(window);
-	glewExperimental = true;
-	if (glewInit() != GLEW_OK)
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-		cout << "Failed to initialize GLEW" << endl;
-		glfwTerminate();
+		std::cout << "Failed to initialize GLAD" << std::endl;
 		return (EXIT_FAILURE);
 	}
-	initialize_input(window, &cam);
-	t_main	main;
-	// main.writer.initialize_typeface("assets/fonts/Crumbled-Pixels.ttf");
+	initialize_input(&window, &cam);
 	glClearColor(0.0f, 0.0f, 0.2f, 0.0f);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glEnable(GL_CULL_FACE);
+	t_main	main;
 	glGenVertexArrays(1, &main.vertex_array_id);
 	glBindVertexArray(main.vertex_array_id);
-	main.view_object.load_from_file("assets/shaders/StandardShading.vertexshader", "assets/shaders/StandardShading.fragmentshader");
+	main.mod.x = 200;
+	main.mod.y = 200;
+	main.mod.scale = 1.0f;
+	main.mod.color = glm::vec3(1.0f, 0.0f, 0.0f);
+	main.view_object.load_from_file(
+		"assets/shaders/StandardShading.vertexshader",
+		"assets/shaders/StandardShading.fragmentshader");
+	main.text.load_from_file(
+		"assets/shaders/Typewriter.vertexshader",
+		"assets/shaders/Typewriter.fragmentshader");
+	main.text.use();
+	glUniformMatrix4fv(glGetUniformLocation(main.text.program_id, "typewriting"), 1, GL_FALSE, glm::value_ptr(cam.typewriting));
+	main.writer.initialize_typeface(
+		"assets/fonts/Crumbled-Pixels.ttf");
 	main.matrix_id = glGetUniformLocation(main.view_object.program_id, "MVP");
 	main.view_matrix_id = glGetUniformLocation(main.view_object.program_id, "V");
 	main.model_matrix_id = glGetUniformLocation(main.view_object.program_id, "M");

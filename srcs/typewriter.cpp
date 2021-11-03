@@ -72,13 +72,10 @@ namespace kaf_typewriter
 
 	void	typewriter::render_text(kaf_shader::shader &s, std::string text, t_text_mod mod)
 	{
-		// activate corresponding render state
 		s.use();
 		glUniform3f(glGetUniformLocation(s.program_id, "textColor"), mod.color.x, mod.color.y, mod.color.z);
 		glActiveTexture(GL_TEXTURE1);
 		glBindVertexArray(typewriter_VAO);
-
-		// iterate through all characters
 		std::string::const_iterator c;
 		for (c = text.begin(); c != text.end(); c++)
 		{
@@ -87,8 +84,6 @@ namespace kaf_typewriter
 			float ypos = mod.y - (ch.size.y - ch.bearing.y) * mod.scale;
 			float w = ch.size.x * mod.scale;
 			float h = ch.size.y * mod.scale;
-
-			// update VBO for each character
 			float vertices[6][4] = {
 				{ xpos,     ypos + h,   0.0f, 0.0f },
 				{ xpos,     ypos,       0.0f, 1.0f },
@@ -98,14 +93,11 @@ namespace kaf_typewriter
 				{ xpos + w, ypos + h,   1.0f, 0.0f }
 			};
 			glBindTexture(GL_TEXTURE_2D, ch.texture_ID);
-			// update content of VBO memory
 			glBindBuffer(GL_ARRAY_BUFFER, typewriter_buffer);
 			glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
-			// render quad
 			glDrawArrays(GL_TRIANGLES, 0, 6);
-			// now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-			mod.x += (ch.advance >> 6) * mod.scale; // bitshift by 6 to get value in pixels (2^6 = 64)
+			mod.x += (ch.advance >> 6) * mod.scale;
 		}
 		glBindVertexArray(0);
 		glBindTexture(GL_TEXTURE_2D, 0);

@@ -8,8 +8,6 @@ void	initialize_camera_position(t_camera *cam)
 	cam->initial_fov = 45.0f;
 	cam->speed = 3.0f;
 	cam->mouse_speed = 0.005f;
-	cam->win_width = 1024;
-	cam->win_height = 768;
 	cam->middle = (t_screen_xy){512, 384};
 	initialize_time(&cam->t);
 	cam->model = mat4(1.0f);

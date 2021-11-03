@@ -1,6 +1,6 @@
 #ifndef SHADER_HPP
 #define SHADER_HPP
-#include "../glew/include/GL/glew.h"
+#include "../glad/include/glad/glad.h"
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -34,7 +34,7 @@ namespace kaf_shader
 		public:
 			GLuint	program_id;
 			shader(void);
-			~shader();
+			// ~shader();
 			void	use();
 			void	load_from_file(const char* vertex_file_path, const char* fragment_file_path);
 			void	setBool(const std::string &name, bool value) const;

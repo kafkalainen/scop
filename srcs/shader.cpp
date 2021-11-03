@@ -9,13 +9,13 @@ namespace kaf_shader
 		initialized = false;
 	}
 
-	shader::~shader(void)
-	{
-		if (initialized)
-		{
-			glDeleteProgram(program_id);
-		}
-	}
+	// shader::~shader(void)
+	// {
+	// 	if (initialized)
+	// 	{
+	// 		glDeleteProgram(program_id);
+	// 	}
+	// }
 
 	void	shader::load_from_file(const char* vertex_file_path, const char* fragment_file_path)
 	{
@@ -79,8 +79,8 @@ namespace kaf_shader
 	{
 		GLint	success;
 		char	infoLog[1024];
-		glGetShaderiv(type, GL_COMPILE_STATUS, &success);
 
+		glGetShaderiv(type, GL_COMPILE_STATUS, &success);
 		if (kaf_strncmp(msg,"PROGRAM", 8))
 		{
 			glGetShaderiv(type, GL_COMPILE_STATUS, &success);
