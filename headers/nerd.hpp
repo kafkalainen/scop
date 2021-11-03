@@ -62,6 +62,7 @@ typedef struct	t_main
 	kaf_shader::shader			text;
 	kaf_typewriter::typewriter	writer;
 	t_text_mod					mod;
+	float						light_power;
 }				s_main;
 
 void	clean_up_gl(t_main *main);

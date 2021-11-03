@@ -34,6 +34,7 @@ typedef struct	t_camera
 	double		last_time;
 	double		current_time;
 	double		delta_time;
+	float		light_power;
 	float		yaw;
 	float		pitch;
 	float		initial_fov;

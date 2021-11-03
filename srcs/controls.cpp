@@ -33,10 +33,16 @@ void	handle_key_input(GLFWwindow *window, t_camera *cam, float delta_time)
 		cam->position += cam->right * delta_time * cam->speed;
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 		cam->position -= cam->right * delta_time * cam->speed;
+	if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
+		cam->light_power -= 0.1f;
+	if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS)
+		cam->light_power += 0.1f;
 	cam->inputs.t_currently_active = glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS;
 	cam->inputs.w_currently_active = glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS;
 	if (!cam->inputs.transparency_toggle && cam->inputs.t_currently_active)
 		cam->inputs.transparency = !cam->inputs.transparency;
+	if (!cam->inputs.wireframe_toggle && cam->inputs.w_currently_active)
+		cam->inputs.wireframe = !cam->inputs.wireframe;
 	if (!cam->inputs.wireframe_toggle && cam->inputs.w_currently_active)
 		cam->inputs.wireframe = !cam->inputs.wireframe;
 	cam->inputs.transparency_toggle = cam->inputs.t_currently_active;

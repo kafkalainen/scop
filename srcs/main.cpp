@@ -65,10 +65,9 @@ int	main(int argc, char **argv)
 	main.view_object.setInt("texture2", 1);
 	glm::vec3 light_pos = glm::vec3(4,4,4);
 	glm::vec3 light_colour = glm::vec3(1,1,1);
-	float light_power = 50.0f;
+	cam.light_power = 50.0f;
 	main.view_object.setVec3("LightPosition_worldspace", light_pos);
 	main.view_object.setVec3("LightColor", light_colour);
-	main.view_object.setFloat("LightPower", light_power);
 	run_main_loop(window, &main, &cam);
 	clean_up_gl(&main);
 	glfwTerminate();

@@ -29,6 +29,7 @@ int	run_main_loop(GLFWwindow *window, t_main *main, t_camera *cam)
 		glBindBuffer(GL_ARRAY_BUFFER, main->normal_buffer);
 		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 		main->view_object.use();
+		main->view_object.setFloat("LightPower", cam->light_power);
 		glDrawElements(GL_TRIANGLES, main->box.indices.size(), GL_UNSIGNED_SHORT, (void*)0);
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
