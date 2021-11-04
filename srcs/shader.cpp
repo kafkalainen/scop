@@ -80,6 +80,12 @@ namespace kaf_shader
 		glUniform3f(glGetUniformLocation(program_id, name.c_str()), v.x, v.y, v.z);
 	}
 
+	void shader::setMat4(const std::string &name, glm::mat4 m)
+	{
+		glUniformMatrix4fv(glGetUniformLocation(program_id, name.c_str()),
+			1, GL_FALSE, glm::value_ptr(m));
+	}
+
 	void shader::check_compiling_errors(GLuint type, const char *msg)
 	{
 		GLint	success;
