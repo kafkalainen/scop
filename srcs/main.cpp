@@ -63,6 +63,10 @@ int	main(int argc, char **argv)
 	cam.light_power = 50.0f;
 	main.view_object.setVec3("LightPosition_worldspace", light_pos);
 	main.view_object.setVec3("LightColor", light_colour);
+	main.view_object.setVec3("material.ambient", 0.1f, 0.1f, 0.1f);
+	main.view_object.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
+	main.view_object.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
+	main.view_object.setFloat("material.shininess", 32.0f);
 	run_main_loop(window, &main, &cam);
 	clean_up_gl(&main);
 	glfwTerminate();

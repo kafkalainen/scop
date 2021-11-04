@@ -34,13 +34,13 @@ namespace kaf_shader
 		public:
 			GLuint	program_id;
 			shader(void);
-			// ~shader();
 			void	use();
 			void	load_from_file(const char* vertex_file_path, const char* fragment_file_path);
 			void	setBool(const std::string &name, bool value) const;
 			void	setInt(const std::string &name, int value) const;
 			void	setFloat(const std::string &name, float value) const;
 			void	setVec3(const std::string &name, glm::vec3 &v);
+			void	setVec3(const std::string &name, float x, float y, float z);
 			void	setMat4(const std::string &name, glm::mat4 &m);
 	};
 }

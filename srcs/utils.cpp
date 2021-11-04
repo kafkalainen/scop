@@ -40,6 +40,7 @@ int	create_window(GLFWwindow **window)
 **	Vertex attribute pointers are set in main. At this point, I also create
 **	Element Buffer Object, since object file has been indexed, when class loads the
 **	desired object file to the program, and index_VBO has been called.
+**	Light array object using vertex buffer object don't have to be copied again.
 */
 void	initialize_buffers(t_main *main)
 {
@@ -63,4 +64,9 @@ void	initialize_buffers(t_main *main)
 	glEnableVertexAttribArray(2);
  	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, main->element_buffer_object);
  	glBufferData(GL_ELEMENT_ARRAY_BUFFER, main->box.indices.size() * sizeof(unsigned short), &main->box.indices[0], GL_STATIC_DRAW);
+	glGenVertexArrays(1, &main->light_array_object);
+	glBindVertexArray(main->light_array_object);
+	glBindBuffer(GL_ARRAY_BUFFER, main->vertex_buffer_object);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glEnableVertexAttribArray(0);
 }

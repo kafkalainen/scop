@@ -50,7 +50,7 @@ typedef struct	t_main
 	GLuint						texel_buffer_object;
 	GLuint						normal_buffer_object;
 	GLuint						element_buffer_object;
-	GLuint						light_id;
+	GLuint						light_array_object;
 	object						box;
 	kaf_shader::shader			view_object;
 	kaf_shader::shader			text;

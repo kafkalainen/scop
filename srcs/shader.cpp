@@ -80,6 +80,11 @@ namespace kaf_shader
 		glUniform3f(glGetUniformLocation(program_id, name.c_str()), v.x, v.y, v.z);
 	}
 
+	void shader::setVec3(const std::string &name, float x, float y, float z)
+	{
+		glUniform3f(glGetUniformLocation(program_id, name.c_str()), x, y, z);
+	}
+
 	void shader::setMat4(const std::string &name, glm::mat4 &m)
 	{
 		glUniformMatrix4fv(glGetUniformLocation(program_id, name.c_str()),
