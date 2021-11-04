@@ -58,11 +58,10 @@ int	main(int argc, char **argv)
 	main.view_object.use();
 	main.view_object.setInt("texture1", 0);
 	main.view_object.setInt("texture2", 1);
-	glm::vec3 light_pos = glm::vec3(4,4,4);
-	glm::vec3 light_colour = glm::vec3(1,1,1);
-	cam.light_power = 50.0f;
-	main.view_object.setVec3("LightPosition_worldspace", light_pos);
-	main.view_object.setVec3("LightColor", light_colour);
+	main.view_object.setVec3("light.position", 4.0f, 4.0f, 4.0f);
+	main.view_object.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
+	main.view_object.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
+	main.view_object.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 	main.view_object.setVec3("material.ambient", 0.1f, 0.1f, 0.1f);
 	main.view_object.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
 	main.view_object.setVec3("material.specular", 0.5f, 0.5f, 0.5f);

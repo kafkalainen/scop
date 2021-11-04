@@ -29,7 +29,7 @@ int	run_main_loop(GLFWwindow *window, t_main *main, t_camera *cam)
 		main->view_object.use();
 		main->view_object.setMat4("view", cam->view_matrix);
 		main->view_object.setMat4("projection", cam->projection_matrix);
-		main->view_object.setFloat("LightPower", cam->light_power);
+		main->view_object.setVec3("viewPos", cam->position);
 		glBindVertexArray(main->vertex_array_object);
 		for(unsigned int i = 0; i < 10; i++)
 		{
