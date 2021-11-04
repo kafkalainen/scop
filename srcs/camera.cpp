@@ -3,7 +3,9 @@
 void	initialize_camera_position(t_camera *cam)
 {
 	cam->position = glm::vec3(0.0f, 0.0f, 5.0f);
-	cam->yaw = 3.14f;
+	cam->direction = glm::vec3(0.0f, 0.0f, -1.0f);
+	cam->up = glm::vec3(0.0f, 1.0f, 0.0f);
+	cam->yaw = -1.57079633f;
 	cam->pitch = 0.0f;
 	cam->initial_fov = 45.0f;
 	cam->speed = 3.0f;
@@ -21,17 +23,14 @@ void	initialize_camera_position(t_camera *cam)
 
 void	compute_dir_right_up(t_camera *cam)
 {
-	cam->direction = glm::vec3(
-		cos(cam->pitch) * sin(cam->yaw),
+	cam->direction = glm::normalize(glm::vec3(
+		cos(cam->yaw) * cos(cam->pitch),
 		sin(cam->pitch),
-		cos(cam->pitch) * cos(cam->yaw)
-	);
-	cam->right = glm::vec3(
-		sin(cam->yaw - 3.14f/2.0f),
-		0.0f,
-		cos(cam->yaw - 3.14f/2.0f)
-	);
-	cam->up = glm::cross(cam->right, cam->direction);
+		sin(cam->yaw) * cos(cam->pitch)
+	));
+	cam->up = glm::vec3(0.0f, 1.0f, 0.0f);
+	cam->right = glm::normalize(glm::cross(cam->direction, cam->up));
+	cam->up = glm::normalize(glm::cross(cam->right, cam->direction));
 }
 
 void	update_view_matrix(t_camera *cam)

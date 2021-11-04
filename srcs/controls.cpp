@@ -19,8 +19,12 @@ void	handle_mouse_movement(GLFWwindow *window, t_camera *cam)
 {
 	glfwGetCursorPos(window, &cam->mouse.x, &cam->mouse.y);
 	glfwSetCursorPos(window, cam->middle.x, cam->middle.y);
-	cam->yaw += cam->mouse_speed * float(512 - cam->mouse.x);
+	cam->yaw += cam->mouse_speed * float(cam->mouse.x - 512);
 	cam->pitch += cam->mouse_speed * float(384 - cam->mouse.y);
+	if (cam->pitch > 1.57f)
+		cam->pitch = 1.57f;
+	if (cam->pitch < -1.57f)
+		cam->pitch = -1.57f;
 }
 
 void	handle_key_input(GLFWwindow *window, t_camera *cam, float delta_time)
