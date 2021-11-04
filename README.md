@@ -19,7 +19,14 @@ Graphics nerd is my excercise project to learn C++ and OpenGL Graphics library.
 - Vertex Array Objects
 - Element Buffer Objects
 - GLSL Shader language
+- Lighting maps
+
+## Refreshed
+- View matrix
 - Projection matrix
+- Camera
+- "Look At" matrix
+- Euler's angles
 
 ## Key graphics concepts
 
