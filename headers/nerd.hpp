@@ -10,11 +10,8 @@ using namespace std;
 #include "../glad/include/glad/glad.h"
 #include "../glfw/include/GLFW/glfw3.h"
 #include <iostream>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-using namespace glm;
 #include "../libkaf/libkaf.h"
+using namespace glm;
 using namespace kaf_graphics;
 #include "controls.hpp"
 #include "shader.hpp"

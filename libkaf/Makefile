@@ -40,8 +40,10 @@ HEADERS = ./libkaf.h
 
 CC = g++
 CFLAGS = -Wall -Wextra -Werror -g -std=c++14
+ABS_DIR = $(shell pwd)
 SRC = $(addprefix $S, $(SRC_LIST))
 OBJ = $(SRC:$S%=$O%.o)
+GLM_LIBS = $(ABS_DIR)/glm
 
 .PHONY: all tests clean fclean re cleanobj cleanobjdir
 
@@ -59,7 +61,12 @@ $(OBJ): | $O
 $(OBJ): $O%.o: $S% $(HEADERS)
 	$(CC) -c -o $@ $(CFLAGS) -I. $<
 
-$(NAME): $(OBJ)
+$(GLM_LIBS):
+	@if [ ! -d $(GLM_LIBS) ]; then \
+		unzip glm-0.9.8.5.zip; \
+	fi
+
+$(NAME): $(GLM_LIBS) $(OBJ)
 	ar rc $(NAME) $(OBJ)
 	ranlib $(NAME)
 	@echo Successfully created $(NAME)

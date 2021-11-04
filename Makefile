@@ -25,7 +25,7 @@ HEADERS = \
 CC = g++
 
 ABS_DIR = $(shell pwd)
-INCLUDES = -Ilibkaf -Iglm -Iglad/include/ -Iglfw/GLFW/include
+INCLUDES = -Ilibkaf -Iglad/include/ -Iglfw/GLFW/include
 LIBS = -Llibkaf/
 SDL_SRCS = $(ABS_DIR)/SDL2-2.0.14/
 SDL_LIBS = $(ABS_DIR)/SDL2/
@@ -34,7 +34,6 @@ SDL_MIXER_SRCS = $(ABS_DIR)/SDL2_mixer-2.0.4/
 SDL_MIXER_LIBS = $(ABS_DIR)/SDL2_mixer/
 SDL_MIXER_INC = SDL2_mixer/include/SDL2/
 CORES = $(shell echo 2+$(shell cat /proc/cpuinfo | grep processor | wc -l) | bc)
-GLM = $(shell dpkg -l | grep libglm-dev)
 GLFW_SRCS = $(ABS_DIR)/glfw-3.3.4
 GLFW_LIBS = $(ABS_DIR)/glfw
 GLAD = $(ABS_DIR)/glad
@@ -68,7 +67,7 @@ LIBKAF = libkaf$(SLASH)libkaf.a
 SRC = $(addprefix $S$(SLASH), $(SRCS))
 OBJ = $(SRC:$S%=$O%.o)
 
-.PHONY: all clean fclean re glm
+.PHONY: all clean fclean re
 
 all: $(NAME)
 
@@ -81,11 +80,6 @@ $(GLFW_LIBS):
 		cd $(GLFW_LIBS) && \
 		make install; \
 	fi
-
-glm:
-ifndef GLM
-	sudo apt install libglm-dev
-endif
 
 $(SDL_LIBS):
 	@if [ ! $(shell command -v wget 2> /dev/null) ]; then \
@@ -160,7 +154,7 @@ $(OBJ): $O%.o: $S% $(HEADERS)
 $(LIBKAF):
 	make -C libkaf
 
-$(NAME): $(LIBKAF) $(SDL_LIBS) $(SDL_MIXER_LIBS) $(OPENGL) $(GLFW_LIBS) $(FREETYPE_LIBS) $(LIBS_STB) glm $(OBJ)
+$(NAME): $(LIBKAF) $(SDL_LIBS) $(SDL_MIXER_LIBS) $(OPENGL) $(GLFW_LIBS) $(FREETYPE_LIBS) $(LIBS_STB) $(OBJ)
 	$(CC) -o $@ $(INCLUDES) $(LIBS) $(CFLAGS) $(OBJ) $(LDFLAGS)
 	@echo $(GREEN)Compiled executable $(NAME).
 
