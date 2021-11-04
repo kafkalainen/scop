@@ -26,3 +26,6 @@ glew/
 glfw/
 freetype/
 freetype-2.11.0/
+glad/
+libkaf/glm/
+stb/
