@@ -10,7 +10,9 @@ void	initialize_camera_position(t_camera *cam)
 	cam->mouse_speed = 0.005f;
 	cam->middle = (t_screen_xy){512, 384};
 	initialize_time(&cam->t);
-	cam->model = mat4(1.0f);
+	cam->model_matrix = mat4(1.0f);
+	cam->view_matrix = mat4(1.0f);
+	cam->projection_matrix = mat4(1.0f);
 	compute_dir_right_up(cam);
 	update_view_matrix(cam);
 	update_projection_matrix(cam);
@@ -40,6 +42,6 @@ void	update_view_matrix(t_camera *cam)
 
 void	update_projection_matrix(t_camera *cam)
 {
-	float FoV = cam->initial_fov;
-	cam->projection_matrix = glm::perspective(glm::radians(FoV), 4.0f / 3.0f, 0.1f, 100.0f);
+	cam->projection_matrix = glm::perspective(
+		glm::radians(cam->initial_fov), 4.0f / 3.0f, 0.1f, 100.0f);
 }

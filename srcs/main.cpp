@@ -27,8 +27,6 @@ int	main(int argc, char **argv)
 	glDepthFunc(GL_LESS);
 	glEnable(GL_CULL_FACE);
 	t_main	main;
-	glGenVertexArrays(1, &main.vertex_array_id);
-	glBindVertexArray(main.vertex_array_id);
 	main.mod.x = 200;
 	main.mod.y = 200;
 	main.mod.scale = 1.0f;
@@ -43,11 +41,6 @@ int	main(int argc, char **argv)
 	glUniformMatrix4fv(glGetUniformLocation(main.text.program_id, "typewriting"), 1, GL_FALSE, glm::value_ptr(cam.typewriting));
 	main.writer.initialize_typeface(
 		"assets/fonts/Crumbled-Pixels.ttf");
-	main.matrix_id = glGetUniformLocation(main.view_object.program_id, "MVP");
-	main.view_matrix_id = glGetUniformLocation(main.view_object.program_id, "V");
-	main.model_matrix_id = glGetUniformLocation(main.view_object.program_id, "M");
-	main.texture1 = load_image("assets/textures/container.jpg", false);
-	main.texture2 = load_image("assets/textures/awesomeface.png", true);
 	try
 	{
 		main.box.load_from_file(argv[1]);
@@ -60,6 +53,8 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	}
 	initialize_buffers(&main);
+	main.texture1 = load_image("assets/textures/container.jpg", false);
+	main.texture2 = load_image("assets/textures/awesomeface.png", true);
 	main.view_object.use();
 	main.view_object.setInt("texture1", 0);
 	main.view_object.setInt("texture2", 1);

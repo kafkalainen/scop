@@ -35,24 +35,32 @@ int	create_window(GLFWwindow **window)
 }
 
 /*
-**	Initialize buffers creates Vertex Array Objects by using OpenGL glGenBuffers,
-**	then binds those buffers and copies those from our Vertex Buffer Objects.
-**	Vertex attribute pointers are set in the main loop. At this point, I also create
+**	Initialize buffers creates Vertex Array Object, and assigns Vertex Buffer Objects
+**	by using OpenGL glGenBuffers, then binds those buffers and copies those from 3d object vertex data.
+**	Vertex attribute pointers are set in main. At this point, I also create
 **	Element Buffer Object, since object file has been indexed, when class loads the
 **	desired object file to the program, and index_VBO has been called.
 */
 void	initialize_buffers(t_main *main)
 {
-	glGenBuffers(1, &main->vertex_buffer);
-	glGenBuffers(1, &main->texel_buffer);
-	glGenBuffers(1, &main->normal_buffer);
-	glGenBuffers(1, &main->element_buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, main->vertex_buffer);
+	glGenVertexArrays(1, &main->vertex_array_object);
+	glGenBuffers(1, &main->vertex_buffer_object);
+	glGenBuffers(1, &main->texel_buffer_object);
+	glGenBuffers(1, &main->normal_buffer_object);
+	glGenBuffers(1, &main->element_buffer_object);
+	glBindVertexArray(main->vertex_array_object);
+	glBindBuffer(GL_ARRAY_BUFFER, main->vertex_buffer_object);
 	glBufferData(GL_ARRAY_BUFFER, main->box.vertices.size() * sizeof(glm::vec3), &main->box.vertices[0], GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, main->texel_buffer);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glEnableVertexAttribArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, main->texel_buffer_object);
 	glBufferData(GL_ARRAY_BUFFER, main->box.texels.size() * sizeof(glm::vec2), &main->box.texels[0], GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, main->normal_buffer);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glEnableVertexAttribArray(1);
+	glBindBuffer(GL_ARRAY_BUFFER, main->normal_buffer_object);
 	glBufferData(GL_ARRAY_BUFFER, main->box.normals.size() * sizeof(glm::vec3), &main->box.normals[0], GL_STATIC_DRAW);
- 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, main->element_buffer);
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glEnableVertexAttribArray(2);
+ 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, main->element_buffer_object);
  	glBufferData(GL_ELEMENT_ARRAY_BUFFER, main->box.indices.size() * sizeof(unsigned short), &main->box.indices[0], GL_STATIC_DRAW);
 }

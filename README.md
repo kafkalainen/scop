@@ -19,6 +19,7 @@ Graphics nerd is my excercise project to learn C++ and OpenGL Graphics library.
 - Vertex Array Objects
 - Element Buffer Objects
 - GLSL Shader language
+- Projection matrix
 
 ## Key graphics concepts
 
@@ -72,6 +73,8 @@ keyword | explanation
 uniform | global, usable in any shader stage
 sampler | allows to use specific texture.
 glUniform1i | makes sure each uniform sampler corresponds to the proper texture unit.
+
+OpenGL expects all the vertices, that we want to become visible, to be in normalized device coordinates after each vertex shader run.
 
 ## Links
 [Learn OpenGL](https://learnopengl.com/)

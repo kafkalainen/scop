@@ -49,11 +49,11 @@ void	handle_key_input(GLFWwindow *window, t_camera *cam, float delta_time)
 
 void	clean_up_gl(t_main *main)
 {
-	glDeleteBuffers(1, &main->vertex_buffer);
-	glDeleteBuffers(1, &main->texel_buffer);
-	glDeleteBuffers(1, &main->normal_buffer);
-	glDeleteBuffers(1, &main->element_buffer);
+	glDeleteBuffers(1, &main->vertex_buffer_object);
+	glDeleteBuffers(1, &main->texel_buffer_object);
+	glDeleteBuffers(1, &main->normal_buffer_object);
+	glDeleteBuffers(1, &main->element_buffer_object);
+	glDeleteVertexArrays(1, &main->vertex_array_object);
 	glDeleteTextures(1, &main->texture1);
 	glDeleteTextures(1, &main->texture2);
-	glDeleteVertexArrays(1, &main->vertex_array_id);
 }

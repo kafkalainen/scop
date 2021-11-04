@@ -41,18 +41,15 @@ typedef struct	t_bitmap
 
 typedef struct	t_main
 {
-	GLuint						vertex_array_id;
-	GLuint						matrix_id;
-	GLuint						view_matrix_id;
-	GLuint						model_matrix_id;
+	GLuint						vertex_array_object;
 	GLuint						texture1;
 	GLuint						texture2;
 	GLuint						texture_id;
 	vector<unsigned int>		indices;
-	GLuint						vertex_buffer;
-	GLuint						texel_buffer;
-	GLuint						normal_buffer;
-	GLuint						element_buffer;
+	GLuint						vertex_buffer_object;
+	GLuint						texel_buffer_object;
+	GLuint						normal_buffer_object;
+	GLuint						element_buffer_object;
 	GLuint						light_id;
 	object						box;
 	kaf_shader::shader			view_object;
