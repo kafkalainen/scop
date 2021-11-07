@@ -1,3 +1,5 @@
+#ifndef TYPEWRITER_HPP
+#define TYPEWRITER_HPP
 #include <iostream>
 #include <map>
 #include "../glad/include/glad/glad.h"
@@ -19,7 +21,7 @@ typedef struct s_text_mod
 
 namespace kaf_typewriter
 {
-	class typewriter
+	class Typewriter
 	{
 		typedef struct s_character
 		{
@@ -43,8 +45,9 @@ namespace kaf_typewriter
 		public:
 			GLuint			typewriter_buffer;
 			GLuint			typewriter_VAO;
-			typewriter(void);
+			Typewriter(void);
 			int				initialize_typeface(const char *path);
-			void			render_text(kaf_shader::shader &s, std::string text, t_text_mod mod);
+			void			render_text(kaf_shader::Shader &s, std::string text, t_text_mod mod);
 	};
 }
+#endif

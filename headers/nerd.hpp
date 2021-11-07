@@ -10,12 +10,15 @@ using namespace std;
 #include "../glad/include/glad/glad.h"
 #include "../glfw/include/GLFW/glfw3.h"
 #include <iostream>
+#include <filesystem>
 #include "../libkaf/libkaf.h"
 using namespace glm;
 using namespace kaf_graphics;
 #include "controls.hpp"
 #include "shader.hpp"
 #include "camera.hpp"
+#include "mesh.hpp"
+#include "model.hpp"
 #include "typewriter.hpp"
 using namespace kaf_typewriter;
 using namespace kaf_shader;
@@ -51,10 +54,10 @@ typedef struct	t_main
 	GLuint						normal_buffer_object;
 	GLuint						element_buffer_object;
 	GLuint						light_array_object;
-	object						box;
-	kaf_shader::shader			view_object;
-	kaf_shader::shader			text;
-	kaf_typewriter::typewriter	writer;
+	kaf_model::Model			model;
+	kaf_shader::Shader			view_object;
+	kaf_shader::Shader			text;
+	kaf_typewriter::Typewriter	writer;
 	t_text_mod					mod;
 	float						light_power;
 }				s_main;
@@ -70,7 +73,7 @@ void	initialize_time(t_time *t);
 void	handle_key_input(GLFWwindow *window, t_camera *cam, float delta_time);
 void	handle_mouse_movement(GLFWwindow *window, t_camera *cam);
 GLuint	loadDDS(const char * imagepath);
-GLuint	load_image(const char *path, bool alpha);
+GLuint	load_image(const char *path, const string directory, bool gamma);
 int		run_main_loop(GLFWwindow *window, t_main *main, t_camera *cam);
 void	toggle_transparency(t_inputs *input);
 void	toggle_wireframe(t_inputs *input);

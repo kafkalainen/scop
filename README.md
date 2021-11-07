@@ -8,9 +8,11 @@ Graphics nerd is my excercise project to learn C++ and OpenGL Graphics library.
 
 ## Learned through the project
 
+- OpenGL library
+- GLAD usage
 - GLFW events handling
 - C++ OOP
-- Object files parsing (*.obj)
+- Wavefront object files parsing (*.obj)
 - DDS parsing
 - Freetype parsing
 - Conversion from spherical to cartesian coordinates

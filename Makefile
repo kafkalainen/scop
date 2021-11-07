@@ -6,12 +6,14 @@ SRCS = \
 	controls.cpp \
 	dds_parser.cpp \
 	fps_timer.cpp \
-	image_loader.cpp \
-	shader.cpp \
+	load_image.cpp \
+	Mesh.class.cpp \
+	Model.class.cpp \
+	Shader.class.cpp \
 	systems.cpp \
 	update_world.cpp \
 	utils.cpp \
-	typewriter.cpp \
+	Typewriter.class.cpp \
 	glad.c \
 
 HEADERS = \
@@ -21,11 +23,13 @@ HEADERS = \
 	headers/nerd.hpp \
 	headers/shader.hpp \
 	headers/typewriter.hpp \
+	headers/model.hpp \
+	headers/mesh.hpp \
 
 CC = g++
 
 ABS_DIR = $(shell pwd)
-INCLUDES = -Ilibkaf -Iglad/include/ -Iglfw/GLFW/include
+INCLUDES = -Ilibkaf -Iglad/include/ -Iglfw/GLFW/include -Iassimp/include/
 LIBS = -Llibkaf/
 SDL_SRCS = $(ABS_DIR)/SDL2-2.0.14/
 SDL_LIBS = $(ABS_DIR)/SDL2/
@@ -36,18 +40,22 @@ SDL_MIXER_INC = SDL2_mixer/include/SDL2/
 CORES = $(shell echo 2+$(shell cat /proc/cpuinfo | grep processor | wc -l) | bc)
 GLFW_SRCS = $(ABS_DIR)/glfw-3.3.4
 GLFW_LIBS = $(ABS_DIR)/glfw
+ASSIMP_SRCS = $(ABS_DIR)/assimp-5.0.1
+ASSIMP_LIBS = $(ABS_DIR)/assimp
 GLAD = $(ABS_DIR)/glad
 FREETYPE_SRCS = $(ABS_DIR)/freetype-2.11.0
 FREETYPE_LIBS = $(ABS_DIR)/freetype
 CFLAGS_GLFW = $(shell export PKG_CONFIG_PATH=/home/kafkalainen/Documents/cplusplus/glfw/lib/pkgconfig && pkg-config --cflags glfw3)
 CFLAGS_SDL = $(shell $(ABS_DIR)/SDL2/bin/sdl2-config --cflags)
 CFLAGS_FREETYPE = $(shell export PKG_CONFIG_PATH=$(FREETYPE_LIBS) && $(FREETYPE_LIBS)/freetype-config --cflags)
-CFLAGS = -Wall -Wextra -Werror -g $(shell pkg-config --cflags gl) $(CFLAGS_SDL) $(CFLAGS_GLFW) $(CFLAGS_FREETYPE)
+CFLAGS_ASSIMP = $(shell export PKG_CONFIG_PATH=$(ASSIMP_LIBS)/lib/pkgconfig && pkg-config --static --libs assimp)
+CFLAGS = -Wall -Wextra -Werror -g $(shell pkg-config --cflags gl) $(CFLAGS_SDL) $(CFLAGS_GLFW) $(CFLAGS_FREETYPE) $(CFLAGS_ASSIMP)
 LIBS_GLFW = $(shell export PKG_CONFIG_PATH=/home/kafkalainen/Documents/cplusplus/glfw/lib/pkgconfig && pkg-config --static --libs glfw3)
 LIBS_SDL = $(shell $(ABS_DIR)/SDL2/bin/sdl2-config --libs)
 LIBS_STB = $(ABS_DIR)/stb
 LIBS_FREETYPE = $(shell export PKG_CONFIG_PATH=$(FREETYPE_LIBS) && $(FREETYPE_LIBS)/freetype-config --static --libs)
-LDFLAGS = -lkaf $(LIBS_GLFW) $(LIBS_SDL) "-Wl,-rpath,$(GLFW_LIBS)/lib" $(LIBS_FREETYPE)
+LIBS_ASSIMP = $(shell export PKG_CONFIG_PATH=$(ASSIMP_LIBS)/lib/pkgconfig && pkg-config --static --libs assimp)
+LDFLAGS = -lkaf $(LIBS_GLFW) $(LIBS_SDL) "-Wl,-rpath,$(GLFW_LIBS)/lib" "-Wl,-rpath,$(ASSIMP_LIBS)/lib" $(LIBS_FREETYPE) $(LIBS_ASSIMP)
 SLASH = /
 MKDIR := mkdir -p
 RM = /bin/rm -rf
@@ -140,6 +148,18 @@ $(FREETYPE_LIBS):
 		make && make install; \
 	fi
 
+$(ASSIMP_LIBS):
+	@if [ ! -d $(ASSIMP_SRCS) ]; then \
+		tar -xzf assimp-5.0.1.tar.gz; \
+	fi
+	@if [ -d $(ASSIMP_SRCS) ]; then \
+		mkdir -p $(ASSIMP_LIBS) && \
+		cd $(ASSIMP_LIBS) && \
+		cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX:PATH=$(ASSIMP_LIBS) -S$(ASSIMP_SRCS) -B$(ASSIMP_LIBS) && \
+		make -j4 && \
+		make install; \
+	fi
+
 $(LIBS_STB):
 	git clone git@github.com:nothings/stb.git
 $O:
@@ -154,7 +174,7 @@ $(OBJ): $O%.o: $S% $(HEADERS)
 $(LIBKAF):
 	make -C libkaf
 
-$(NAME): $(LIBKAF) $(SDL_LIBS) $(SDL_MIXER_LIBS) $(OPENGL) $(GLFW_LIBS) $(FREETYPE_LIBS) $(LIBS_STB) $(OBJ)
+$(NAME): $(LIBKAF) $(SDL_LIBS) $(SDL_MIXER_LIBS) $(OPENGL) $(GLFW_LIBS) $(FREETYPE_LIBS) $(LIBS_STB) $(ASSIMP_LIBS) $(OBJ)
 	$(CC) -o $@ $(INCLUDES) $(LIBS) $(CFLAGS) $(OBJ) $(LDFLAGS)
 	@echo $(GREEN)Compiled executable $(NAME).
 

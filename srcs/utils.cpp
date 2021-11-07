@@ -42,31 +42,31 @@ int	create_window(GLFWwindow **window)
 **	desired object file to the program, and index_VBO has been called.
 **	Light array object using vertex buffer object don't have to be copied again.
 */
-void	initialize_buffers(t_main *main)
-{
-	glGenVertexArrays(1, &main->vertex_array_object);
-	glGenBuffers(1, &main->vertex_buffer_object);
-	glGenBuffers(1, &main->texel_buffer_object);
-	glGenBuffers(1, &main->normal_buffer_object);
-	glGenBuffers(1, &main->element_buffer_object);
-	glBindVertexArray(main->vertex_array_object);
-	glBindBuffer(GL_ARRAY_BUFFER, main->vertex_buffer_object);
-	glBufferData(GL_ARRAY_BUFFER, main->box.vertices.size() * sizeof(glm::vec3), &main->box.vertices[0], GL_STATIC_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, main->texel_buffer_object);
-	glBufferData(GL_ARRAY_BUFFER, main->box.texels.size() * sizeof(glm::vec2), &main->box.texels[0], GL_STATIC_DRAW);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
-	glEnableVertexAttribArray(1);
-	glBindBuffer(GL_ARRAY_BUFFER, main->normal_buffer_object);
-	glBufferData(GL_ARRAY_BUFFER, main->box.normals.size() * sizeof(glm::vec3), &main->box.normals[0], GL_STATIC_DRAW);
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-	glEnableVertexAttribArray(2);
- 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, main->element_buffer_object);
- 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, main->box.indices.size() * sizeof(unsigned short), &main->box.indices[0], GL_STATIC_DRAW);
-	glGenVertexArrays(1, &main->light_array_object);
-	glBindVertexArray(main->light_array_object);
-	glBindBuffer(GL_ARRAY_BUFFER, main->vertex_buffer_object);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-	glEnableVertexAttribArray(0);
-}
+// void	initialize_buffers(t_main *main)
+// {
+// 	glGenVertexArrays(1, &main->vertex_array_object);
+// 	glGenBuffers(1, &main->vertex_buffer_object);
+// 	glGenBuffers(1, &main->texel_buffer_object);
+// 	glGenBuffers(1, &main->normal_buffer_object);
+// 	glGenBuffers(1, &main->element_buffer_object);
+// 	glBindVertexArray(main->vertex_array_object);
+// 	glBindBuffer(GL_ARRAY_BUFFER, main->vertex_buffer_object);
+// 	glBufferData(GL_ARRAY_BUFFER, main->box.vertices.size() * sizeof(glm::vec3), &main->box.vertices[0], GL_STATIC_DRAW);
+// 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+// 	glEnableVertexAttribArray(0);
+// 	glBindBuffer(GL_ARRAY_BUFFER, main->texel_buffer_object);
+// 	glBufferData(GL_ARRAY_BUFFER, main->box.texels.size() * sizeof(glm::vec2), &main->box.texels[0], GL_STATIC_DRAW);
+// 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+// 	glEnableVertexAttribArray(1);
+// 	glBindBuffer(GL_ARRAY_BUFFER, main->normal_buffer_object);
+// 	glBufferData(GL_ARRAY_BUFFER, main->box.normals.size() * sizeof(glm::vec3), &main->box.normals[0], GL_STATIC_DRAW);
+// 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+// 	glEnableVertexAttribArray(2);
+//  	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, main->element_buffer_object);
+//  	glBufferData(GL_ELEMENT_ARRAY_BUFFER, main->box.indices.size() * sizeof(unsigned short), &main->box.indices[0], GL_STATIC_DRAW);
+// 	glGenVertexArrays(1, &main->light_array_object);
+// 	glBindVertexArray(main->light_array_object);
+// 	glBindBuffer(GL_ARRAY_BUFFER, main->vertex_buffer_object);
+// 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+// 	glEnableVertexAttribArray(0);
+// }

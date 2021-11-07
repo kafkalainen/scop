@@ -43,8 +43,7 @@ int	main(int argc, char **argv)
 		"assets/fonts/Crumbled-Pixels.ttf");
 	try
 	{
-		main.box.load_from_file(argv[1]);
-		main.box.index_VBO();
+		main.model.loadModel(argv[1]);
 	}
 	catch (char const *str)
 	{
@@ -52,12 +51,9 @@ int	main(int argc, char **argv)
 		clean_up_gl(&main);
 		return (EXIT_FAILURE);
 	}
-	initialize_buffers(&main);
-	main.texture1 = load_image("assets/textures/container.jpg", false);
-	main.texture2 = load_image("assets/textures/awesomeface.png", true);
 	main.view_object.use();
-	main.view_object.setInt("texture1", 0);
-	main.view_object.setInt("texture2", 1);
+	main.view_object.setInt("material.diffuse", 0);
+	main.view_object.setInt("material.specular", 1);
 	main.view_object.setVec3("light.position", 4.0f, 4.0f, 4.0f);
 	main.view_object.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
 	main.view_object.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);

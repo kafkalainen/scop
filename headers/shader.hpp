@@ -15,7 +15,7 @@
 
 namespace kaf_shader
 {
-	class shader
+	class Shader
 	{
 		typedef struct t_temp_loader
 		{
@@ -33,7 +33,7 @@ namespace kaf_shader
 			void	check_compiling_errors(GLuint type, const char *msg);
 		public:
 			GLuint	program_id;
-			shader(void);
+			Shader(void);
 			void	use();
 			void	load_from_file(const char* vertex_file_path, const char* fragment_file_path);
 			void	setBool(const std::string &name, bool value) const;
