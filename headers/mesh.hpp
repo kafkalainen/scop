@@ -3,12 +3,17 @@
 # include "../glad/include/glad/glad.h"
 # include "../libkaf/libkaf.h"
 # include "shader.hpp"
+# define MAX_BONE_INFLUENCE 4
 
 typedef struct t_vertex
 {
 	glm::vec3	pos;
 	glm::vec3	normal;
 	glm::vec2	texel;
+	glm::vec2	tangent;
+	glm::vec2	bitangent;
+	int			m_BoneIDs[MAX_BONE_INFLUENCE];
+	float		m_Weights[MAX_BONE_INFLUENCE];
 }			s_vertex;
 
 typedef struct t_texture

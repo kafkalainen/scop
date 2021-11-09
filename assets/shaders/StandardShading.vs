@@ -2,7 +2,7 @@
 
 // Input vertex data, different for all executions of this shader.
 layout(location = 0) in vec3 vertexPosition_modelspace;
-layout(location = 1) in vec2 vertexUV;
+layout(location = 1) in vec2 vertex_texel;
 layout(location = 2) in vec3 vertexNormal_modelspace;
 
 // Output data ; will be interpolated for each fragment.
@@ -21,5 +21,5 @@ void main()
 	gl_Position = projection * view * model * vec4(vertexPosition_modelspace, 1.0);
 	Position_worldspace = (model * vec4(vertexPosition_modelspace, 1.0)).xyz;
 	Normal_cameraspace = vec3(vertexNormal_modelspace);
-	texel = vertexUV;
+	texel = vertex_texel;
 }
