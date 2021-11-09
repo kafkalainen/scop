@@ -49,7 +49,7 @@ namespace kaf_mesh
 			(void*)offsetof(t_vertex, tangent));
 		glEnableVertexAttribArray(4);
 		glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(t_vertex),
-			(void*)offsetof(t_vertex, tangent));
+			(void*)offsetof(t_vertex, bitangent));
 		glEnableVertexAttribArray(5);
 		glVertexAttribPointer(5, MAX_BONE_INFLUENCE, GL_INT, GL_FALSE, sizeof(t_vertex),
 			(void*)offsetof(t_vertex, m_BoneIDs));
