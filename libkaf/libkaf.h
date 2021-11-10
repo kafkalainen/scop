@@ -17,6 +17,7 @@ int			kaf_open(const char *name);
 void		kaf_putendl(const string str);
 void		kaf_putstr(const string str);
 int			kaf_nblen(int nb);
+int			kaf_strcmp(const char *s1, const char *s2);
 int			kaf_strncmp(const char *s1, const char *s2, size_t n);
 int			kaf_memcmp(const void *s1, const void *s2, size_t n);
 void		*kaf_memcpy(void *dest, const void *src, size_t n);

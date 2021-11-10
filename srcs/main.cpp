@@ -41,6 +41,11 @@ int	main(int argc, char **argv)
 	glUniformMatrix4fv(glGetUniformLocation(main.text.program_id, "typewriting"), 1, GL_FALSE, glm::value_ptr(cam.typewriting));
 	main.writer.initialize_typeface(
 		"assets/fonts/Crumbled-Pixels.ttf");
+	main.view_object.use();
+	main.view_object.setVec3("light.position", 4.0f, 4.0f, 4.0f);
+	main.view_object.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
+	main.view_object.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
+	main.view_object.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 	try
 	{
 		main.model.loadModel(argv[1]);
@@ -52,16 +57,6 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	}
 	main.view_object.use();
-	main.view_object.setInt("material.diffuse", 0);
-	main.view_object.setInt("material.specular", 1);
-	main.view_object.setVec3("light.position", 4.0f, 4.0f, 4.0f);
-	main.view_object.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
-	main.view_object.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
-	main.view_object.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
-	main.view_object.setVec3("material.ambient", 0.1f, 0.1f, 0.1f);
-	main.view_object.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
-	main.view_object.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
-	main.view_object.setFloat("material.shininess", 32.0f);
 	run_main_loop(window, &main, &cam);
 	clean_up_gl(&main);
 	glfwTerminate();
